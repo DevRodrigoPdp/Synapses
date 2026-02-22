@@ -25,6 +25,8 @@ const Menu = () => {
     const { user, signOut } = useAuth();
     const { carrito, total } = useCarrito();
 
+    // Solo mostramos el panel si el correo coincide
+    const esPropietario = user?.email === 'rpuertadelpozo@gmail.com';
 
     useEffect(() => {
         const handleEsc = (event) => {
@@ -73,7 +75,7 @@ const Menu = () => {
                     <Link to="/" onClick={closeMobileMenu}>Inicio</Link>
                     <Link to="/rebajas" onClick={closeMobileMenu}>Rebajas</Link>
                     <Link to="/autor" onClick={closeMobileMenu}>Autor</Link>
-                    {user && <Link to="/administracion" onClick={closeMobileMenu}>Panel Admin</Link>}
+                    {esPropietario && <Link to="/administracion" onClick={closeMobileMenu}>Panel Admin</Link>}
 
                     <div className="mobile-user-actions">
                         {user ? (
