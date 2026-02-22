@@ -4,7 +4,7 @@
 
 .parallax-container {
     /* Fotografía cruda y de alta calidad para el separador */
-    background-image: url('https://www.bielsa.com/wp-content/uploads/2024/10/cervelo-bielsa.webp');
+    background-image: url('https://images.unsplash.com/photo-1544181090-410a08e19c0b?q=80&w=2669&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* ESTA ES LA CLAVE DEL EFECTO PARALLAX */
