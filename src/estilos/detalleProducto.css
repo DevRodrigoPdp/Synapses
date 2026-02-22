@@ -1,0 +1,378 @@
+/* =========================================
+   1. CONFIGURACIÓN GLOBAL (SIN HUECOS)
+   ========================================= */
+.detalle-page {
+    font-family: var(--font-tech);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    
+    /* CORRECCIÓN: Ancho total real y sin margen izquierdo */
+    width: 100%;
+    padding-top: 40px;
+    padding-left: 0; /* AQUÍ ESTABA EL ERROR: Cambiado de 60px a 0 */
+    
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* =========================================
+   2. LAYOUT DEL CONTENEDOR PRINCIPAL
+   ========================================= */
+.wide-container {
+    width: 100%;
+    max-width: 1500px;
+    padding: 0 5%;
+    margin: 0 auto;
+}
+
+.breadcrumbs {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888;
+    padding-left: 5%; /* Alineado con el contenedor */
+}
+
+.breadcrumbs a { text-decoration: none; color: inherit; transition: color 0.2s; }
+.breadcrumbs a:hover { color: var(--text-color); }
+.breadcrumbs .separator { margin: 0 10px; color: #ccc; }
+.breadcrumbs .current { color: var(--text-color); font-weight: 800; }
+
+/* --- CORRECCIÓN DE LA CLASE QUE PEDISTE --- */
+.detalle-container.wide-layout {
+    width: 100%;
+    max-width: 1600px; /* Tope máximo para pantallas ultra anchas */
+    margin: 0 auto;    /* Centrado automático */
+    padding: 0 5%;     /* Margen interno lateral (respiro) */
+    
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Proporción imagen/texto */
+    gap: 120px; 
+    
+    align-items: start;
+    padding-bottom: 120px;
+    box-sizing: border-box; /* Asegura que el padding no sume al ancho total */
+}
+
+/* =========================================
+   3. COLUMNA IMAGEN (STICKY)
+   ========================================= */
+.col-imagen-expanded {
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+    width: 100%;
+}
+
+.imagen-principal-wrapper {
+    background-color: var(--card-bg);
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+html.dark .imagen-principal-wrapper {
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
+    border-color: #222;
+}
+
+.img-main {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.imagen-principal-wrapper:hover .img-main { transform: scale(1.05); }
+
+.scroll-indicator-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    opacity: 0.5;
+}
+
+.mouse-scroll {
+    width: 22px;
+    height: 38px;
+    border: 2px solid var(--text-color);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+}
+
+.mouse-wheel {
+    width: 3px;
+    height: 8px;
+    background: var(--text-color);
+    border-radius: 2px;
+    animation: scrollWheel 1.5s infinite;
+}
+
+.scroll-text {
+    font-size: 0.6rem;
+    font-weight: 800;
+    margin-top: 12px;
+    letter-spacing: 2px;
+    color: var(--text-color);
+}
+
+@keyframes scrollWheel {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(15px); opacity: 0; }
+}
+
+
+/* =========================================
+   4. COLUMNA INFO & COMPRA
+   ========================================= */
+.col-info-expanded { width: 100%; }
+
+.product-header { 
+    border-bottom: 2px solid var(--text-color); 
+    padding-bottom: 20px; 
+    margin-bottom: 30px; 
+}
+
+.marca { 
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 3px; color: var(--accent-color); 
+}
+
+.titulo { 
+    font-family: var(--font-display);
+    font-size: 3.8rem; font-weight: 900; line-height: 0.9; margin: 10px 0; text-transform: uppercase; color: var(--text-color);
+    word-wrap: break-word;
+}
+
+.badges-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.stock-badge { 
+    color: #2ecc71; border: 1px solid #2ecc71; padding: 4px 10px; font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; 
+}
+.dot-green { width: 6px; height: 6px; background: #2ecc71; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 5px #2ecc71; }
+.sku-badge { color: #888; font-family: monospace; font-size: 0.8rem; }
+
+.precio-block-large { margin-bottom: 40px; }
+.precio { font-family: var(--font-tech); font-size: 2.8rem; font-weight: 700; color: var(--text-color); }
+.financiacion { color: #666; font-size: 0.85rem; margin-top: 5px; }
+
+.highlights-grid { 
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 40px; 
+}
+.hl-item { 
+    background: var(--card-bg); padding: 20px 10px; text-align: center; border: 1px solid var(--border-color); 
+}
+.hl-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; color: var(--text-color); }
+.hl-text { font-size: 0.6rem; font-weight: 800; color: var(--text-color); letter-spacing: 0.5px; }
+
+.descripcion-short p {
+    color: var(--text-color); line-height: 1.6; margin-bottom: 30px; opacity: 0.8;
+}
+
+.compra-actions-expanded { display: flex; gap: 20px; margin-bottom: 40px; }
+
+.selector-cantidad { 
+    display: flex; border: 2px solid var(--text-color); height: 60px; width: 140px; background: var(--input-bg);
+}
+.selector-cantidad button { 
+    flex: 1; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-color);
+}
+.selector-cantidad span { 
+    flex: 1; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--text-color);
+}
+
+.btn-add-cart-large { 
+    flex: 1; background: var(--text-color); color: var(--bg-color); border: none; 
+    font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; letter-spacing: 1px;
+}
+.btn-add-cart-large:hover { 
+    background: var(--accent-color); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+}
+
+/* TABS */
+.product-tabs-container { width: 100%; overflow: hidden; }
+.tabs-header { display: flex; gap: 30px; border-bottom: 1px solid var(--border-color); margin-bottom: 25px; }
+.tab-btn { background: none; border: none; padding-bottom: 15px; font-weight: 800; color: #888; cursor: pointer; position: relative; }
+.tab-btn.active { color: var(--text-color); }
+.tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--text-color); }
+
+.tab-content { width: 100%; overflow-x: auto; }
+.specs-table { width: 100%; border-collapse: collapse; }
+.specs-table td { padding: 15px 0; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-color); }
+.specs-table td:first-child { font-weight: 800; color: #888; text-transform: uppercase; font-size: 0.7rem; width: 40%; }
+.shipping-details p { margin-bottom: 10px; }
+
+
+/* =========================================
+   5. SECCIONES FULL WIDTH
+   ========================================= */
+.full-width-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 120px 0;
+    box-sizing: border-box;
+}
+
+/* Contenedor interno */
+.full-width-inner {
+    max-width: 1500px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.dark-bg { background-color: #050505; color: #fff; }
+
+.content-split { 
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 100px; align-items: center;
+}
+
+.text-side, .visual-side { width: 100%; max-width: 100%; }
+
+.subtitle-tech { color: #2ecc71; font-family: monospace; letter-spacing: 3px; display: block; margin-bottom: 10px; font-size: 0.7rem; font-weight: 800; }
+.title-tech { font-size: 3rem; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
+.text-side p { color: #ccc; line-height: 1.8; margin-bottom: 20px; }
+.tech-list { list-style: none; padding: 0; margin-top: 30px; color: #ccc; }
+.tech-list li { padding: 12px 20px; border-left: 2px solid #2ecc71; margin-bottom: 10px; background: rgba(255,255,255,0.03); }
+
+/* Gráfico */
+.tech-graphic { 
+    background: #111; border: 1px solid #333; height: 350px; padding: 40px; 
+    position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+    width: 100%; box-sizing: border-box;
+}
+.graphic-label { position: absolute; top: 20px; left: 20px; font-size: 0.6rem; color: #555; font-family: monospace; text-transform: uppercase; letter-spacing: 2px; }
+.bar-chart { display: flex; justify-content: space-around; align-items: flex-end; height: 80%; border-bottom: 1px solid #333; }
+.bar { width: 45px; background: #222; position: relative; }
+.bar.active { background: #2ecc71; box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
+.bar span { position: absolute; bottom: -30px; width: 100%; text-align: center; font-size: 0.6rem; color: #666; font-weight: 700; }
+
+/* Reviews */
+.light-bg { 
+    background: var(--card-bg); color: var(--text-color); 
+    border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); 
+}
+.section-title-center { text-align: center; font-size: 2.5rem; font-weight: 900; margin-bottom: 60px; text-transform: uppercase; color: var(--text-color); }
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.review-card { background: var(--bg-color); padding: 40px; border: 1px solid var(--border-color); }
+.stars { color: var(--text-color); margin-bottom: 15px; font-size: 1.2rem; }
+.review-card h3 { margin: 0 0 10px 0; font-weight: 800; color: var(--text-color); }
+.review-card p { font-style: italic; line-height: 1.6; margin-bottom: 20px; color: var(--text-color); opacity: 0.8; }
+.author { font-weight: 800; font-size: 0.7rem; color: #999; text-transform: uppercase; }
+
+/* FAQ */
+.white-bg { background-color: var(--bg-color); color: var(--text-color); }
+.faq-container { max-width: 1000px; }
+.section-title-left { font-size: 2.5rem; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; color: var(--text-color); }
+.faq-item { border-bottom: 1px solid var(--border-color); }
+.faq-item summary { padding: 25px 0; font-weight: 800; cursor: pointer; list-style: none; display: flex; justify-content: space-between; color: var(--text-color); }
+.faq-item summary::after { content: '+'; color: var(--accent-color); font-size: 1.5rem; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding-bottom: 25px; color: #666; line-height: 1.6; }
+html.dark .faq-item p { color: #aaa; }
+
+
+/* =========================================
+   6. RESPONSIVE (MÓVIL Y TABLET)
+   ========================================= */
+
+/* Portátiles Medianos */
+@media (max-width: 1400px) {
+    .detalle-container.wide-layout { gap: 80px; }
+}
+
+/* Tablets Horizontal */
+@media (max-width: 1024px) {
+    .detalle-container.wide-layout { 
+        grid-template-columns: 1fr; /* Cambia a una sola columna */
+        gap: 60px; 
+    }
+    .col-imagen-expanded { 
+        position: relative; /* Quita el sticky */
+        top: 0; 
+    }
+    .content-split { 
+        grid-template-columns: 1fr; 
+        gap: 50px; 
+    }
+    .visual-side { order: -1; }
+    .full-width-section { padding: 80px 0; }
+}
+
+/* MÓVILES */
+@media (max-width: 768px) {
+    .detalle-page {
+        padding-top: 20px;
+        padding-left: 0; /* Aseguramos que no haya margen */
+    }
+
+    /* Ajuste para el contenedor problemático */
+    .detalle-container.wide-layout {
+        width: 100%;
+        padding: 0 20px 60px; /* Margen lateral cómodo en móvil */
+        gap: 40px;
+        display: flex; /* Flex para apilar en orden controlado */
+        flex-direction: column;
+    }
+    
+    .breadcrumbs {
+        padding-left: 20px;
+        margin-bottom: 30px;
+    }
+
+    .titulo { 
+        font-size: 2.5rem;
+        line-height: 1;
+    }
+    
+    .imagen-principal-wrapper {
+        min-height: 350px;
+        padding: 20px;
+    }
+
+    .compra-actions-expanded {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .selector-cantidad {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Secciones Full Width que tocan bordes en móvil */
+    .full-width-section {
+        padding: 60px 0;
+        width: 100vw;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        left: 50%;
+    }
+    
+    .content-split {
+        gap: 40px;
+    }
+    
+    .title-tech, .section-title-center, .section-title-left {
+        font-size: 2rem;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Poppins:wght@800;900&display=swap');
+
+/* --- 1. CONTENEDOR MAESTRO --- */
+.dossier-container {
+    background-color: var(--bg-color); 
+    padding-top: 0; 
+    font-family: var(--font-tech); 
+    color: var(--text-color);      
+    width: 100%;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* --- 2. HERO SECTION --- */
+.dossier-hero {
+    padding: 0 8%;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-content-wrapper {
+    max-width: 90%; 
+}
+
+.hero-tag {
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--accent-color); 
+    margin-bottom: 20px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.dossier-main-title {
+    font-family: var(--font-display); 
+    font-size: clamp(3rem, 6vw, 6rem); 
+    line-height: 0.9;
+    font-weight: 900;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+/* --- NUEVO ESTILO PARA "PRECISIÓN" (CORREGIDO) --- */
+.dossier-main-title .outline {
+    /* 1. Quitamos el contorno problemático */
+    -webkit-text-stroke: 0; 
+    color: var(--text-color); /* Ahora es texto sólido */
+    
+    /* 2. Añadimos una sombra dura desplazada en color Rojo */
+    /* Esto da un look de "plano de ingeniería" muy limpio sin picos raros */
+    
+    
+    font-weight: 900;
+    display: inline-block; /* Asegura que la sombra se dibuje bien */
+    margin-top: 5px; /* Un poco de aire arriba */
+}
+
+.hero-lead {
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    max-width: 600px;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+
+/* --- INDICADOR DE SCROLL (LATERAL DERECHO) --- */
+.scroll-indicator {
+    position: absolute;
+    right: 4%;
+    bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    opacity: 0.6;
+    animation: fadeIn 2s ease-out 1s backwards;
+    z-index: 10;
+}
+
+.scroll-text {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-color);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.scroll-arrow {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    animation: bounce 2s infinite; 
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(10px); }
+    60% { transform: translateY(5px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 0.6; transform: translateX(0); }
+}
+
+
+/* --- 3. GRID TÉCNICO --- */
+.dossier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(400px, auto);
+    border-top: 2px solid var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+}
+
+.grid-block {
+    padding: 40px;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.block-number {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    opacity: 0.2;
+    color: var(--text-color);
+}
+
+.grid-block h3 {
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: inherit;
+}
+
+.grid-block p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: inherit;
+    opacity: 0.9;
+}
+
+/* Bloques */
+.block-dark { background: #111; color: #fff; border-right: none; }
+.block-white { background: var(--card-bg); color: var(--text-color); }
+.block-red { 
+    background: var(--accent-color); color: #fff; border-right: none; grid-column: span 3; 
+}
+.block-red h2 {
+    font-size: 3rem; line-height: 1; margin: 10px 0; font-family: var(--font-display);
+}
+
+/* Imagen Taller */
+.block-image.section-taller-img {
+    grid-column: span 2;
+    background-color: #333; 
+    background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
+    background-size: cover; background-position: center; min-height: 400px;
+    filter: grayscale(100%); transition: filter 0.3s;
+}
+.block-image.section-taller-img:hover { filter: grayscale(0%); }
+
+/* Lista especificaciones */
+.spec-list { list-style: none; padding: 0; }
+.spec-list li {
+    font-size: 0.9rem; margin-bottom: 8px; font-weight: 700;
+    border-bottom: 1px solid var(--border-color); padding-bottom: 5px; color: var(--text-color);
+}
+.spec-list li span { color: var(--accent-color); margin-right: 8px; }
+
+
+/* --- 4. CTA: RESERVA TU CITA --- */
+.dossier-cta {
+    padding: 120px 20px; background: var(--card-bg); text-align: center; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--border-color);
+}
+.cta-box { max-width: 800px; width: 100%; }
+.cta-box h2 {
+    font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; margin-bottom: 40px; text-transform: uppercase; line-height: 1.1; color: var(--text-color);
+}
+.btn-lab {
+    display: inline-block; background: var(--text-color); color: var(--bg-color); padding: 20px 50px; text-decoration: none; font-weight: 900; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); border: 2px solid var(--text-color);
+}
+.btn-lab:hover {
+    background: transparent; color: var(--text-color); transform: translateY(-5px); box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+
+/* --- 5. RESPONSIVE --- */
+
+@media (max-width: 1024px) {
+    .dossier-grid { grid-template-columns: repeat(2, 1fr); }
+    .block-image { grid-column: span 2; height: 350px; }
+    .block-red { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .dossier-hero {
+        min-height: auto; 
+        padding: 100px 5% 80px 5%;
+        display: block; 
+    }
+    
+    .hero-content-wrapper { max-width: 100%; }
+
+    /* En móvil el indicador vuelve abajo */
+    .scroll-indicator {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin-top: 60px;
+        flex-direction: column;
+        transform: none;
+        width: 100%;
+    }
+    
+    .scroll-text {
+        writing-mode: horizontal-tb;
+        transform: none;
+        margin-bottom: 5px;
+    }
+
+    .dossier-grid { display: flex; flex-direction: column; }
+    .grid-block { padding: 30px 20px; min-height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+    .block-image.section-taller-img { min-height: 250px; }
+    .block-red h2 { font-size: 2.5rem; }
+    .dossier-cta { padding: 80px 20px; }
+    .btn-lab { width: 100%; display: block; padding: 18px 0; font-size: 0.9rem; }
+}

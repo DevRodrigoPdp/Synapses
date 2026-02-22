@@ -1,0 +1,333 @@
+/* 1. IMPORTACIÓN DE FUENTE */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;600&display=swap');
+
+/* 2. VARIABLES DE COLOR (THEMING) */
+:root {
+    /* --- MODO CLARO (Día) --- */
+    --bg-color: #f8f8f8;          /* Fondo general */
+    --text-color: #111111;        /* Texto principal (Negro en día) */
+    --header-bg: rgba(248, 248, 248, 0.95);
+    --card-bg: #ffffff;           /* Fondo tarjetas */
+    --border-color: rgba(0, 0, 0, 0.15); /* Bordes sutiles */
+    --border-strong: #111111;     /* Borde fuerte (técnico) */
+    --input-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    
+    /* Colores Fijos */
+    --accent-color: #e74c3c;      /* Rojo Synapses */
+    --footer-bg: #111111;
+    --footer-text: #ffffff;
+    
+    /* Variables Lógicas (Inversas para botones técnicos) */
+    --tech-bg: #111111;           /* Botón negro en día */
+    --tech-text: #ffffff;         /* Texto blanco en día */
+    
+    /* Tipografía */
+    --font-main: 'Montserrat', sans-serif;
+    --font-tech: 'Inter', sans-serif;
+}
+
+/* --- MODO OSCURO (Night Ops) --- */
+html.dark {
+    /* Fondo: Negro asfalto */
+    --bg-color: #050505;          
+    
+    /* Texto: Blanco roto (Blanco en noche) */
+    --text-color: #ededed;        
+    
+    --header-bg: rgba(15, 15, 15, 0.95);
+    
+    /* Tarjetas: Gris técnico */
+    --card-bg: #121212;           
+    
+    --border-color: #333333;
+    --border-strong: #ededed;     /* Borde fuerte es blanco en noche */
+    
+    --input-bg: #1a1a1a;
+    
+    --shadow-color: rgba(0, 0, 0, 0.8);
+
+    /* Variables Lógicas Inversas */
+    --tech-bg: #ededed;           /* Botón blanco en noche */
+    --tech-text: #050505;         /* Texto negro en noche */
+}
+
+/* 3. RESET Y SCROLLBAR */
+::-webkit-scrollbar { display: none; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+/* 4. ELEMENTOS GLOBALES */
+input, select, textarea {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 4px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--text-color);
+    border-color: transparent;
+}
+
+button { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+
+
+/* =========================================================
+   5. ESTILOS PANEL DE ADMINISTRACIÓN (INTEGRADO)
+   ========================================================= */
+
+.admin-container {
+    padding: 40px 5%;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    font-family: var(--font-tech);
+}
+
+/* --- LISTA DE PRODUCTOS --- */
+.productos-list {
+    list-style: none;
+    padding: 0;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 1200px;
+}
+
+/* Tarjeta de Producto */
+.producto-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    /* Borde izquierdo usa el color de texto (negro en día, blanco en noche) */
+    border-left: 4px solid var(--text-color); 
+}
+
+.producto-item:hover {
+    border-color: var(--text-color); /* Borde se marca al hover */
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transform: translateX(5px);
+}
+
+/* Textos */
+.producto-item div:first-child { 
+    font-family: var(--font-tech);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.producto-item strong {
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 10px;
+}
+
+.producto-info-extra {
+    opacity: 0.7; /* Usamos opacidad para que se vea bien en ambos temas */
+    font-size: 0.85rem;
+    margin-left: 5px;
+}
+
+/* --- BOTONES DE ACCIÓN (GRUPO) --- */
+.producto-item div:last-child {
+    display: flex;
+    gap: 10px;
+}
+
+.producto-item button {
+    padding: 8px 16px;
+    border: 1px solid var(--text-color);
+    background: transparent;
+    color: var(--text-color);
+    font-family: var(--font-tech);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+/* Botón CONSULTAR (Se invierte según el tema) */
+.producto-item button:nth-child(1):hover {
+    background: var(--text-color);
+    color: var(--bg-color); 
+}
+
+/* Botón BORRAR (Rojo Synapses) */
+.producto-item button:nth-child(2) {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+.producto-item button:nth-child(2):hover {
+    background: var(--accent-color);
+    color: #ffffff;
+}
+
+/* Botón EDITAR (Gris) */
+.producto-item button:nth-child(3) {
+    border-color: var(--border-color);
+    color: var(--text-color);
+    opacity: 0.8;
+}
+.producto-item button:nth-child(3):hover {
+    background: var(--border-color); /* Gris suave */
+    opacity: 1;
+}
+
+/* --- BOTÓN AÑADIR (FLOTANTE) --- */
+.add-producto-btn {
+    display: block;
+    margin: 40px auto;
+    padding: 18px 40px;
+    
+    /* Usa las variables "Tech" para invertir colores correctamente */
+    background-color: var(--tech-bg); 
+    color: var(--tech-text);
+    
+    font-family: var(--font-main);
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid var(--tech-bg);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s;
+    box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+.add-producto-btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Mensaje "No hay productos" */
+.productos-list p {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.6;
+    font-style: italic;
+    padding: 40px;
+    border: 1px dashed var(--border-color);
+}
+
+/* Responsive Admin */
+@media (max-width: 768px) {
+    .producto-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .producto-item div:last-child {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .producto-item button {
+        flex-grow: 1;
+        text-align: center;
+        padding: 10px;
+    }
+}
+
+/* =========================================================
+   6. SWEETALERT2 (ADAPTADO A TUS VARIABLES)
+   Nota: Usa !important porque SweetAlert tiene estilos inline
+   ========================================================= */
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background-color: var(--card-bg) !important;
+    border: 2px solid var(--text-color) !important;
+    border-radius: 0 !important;
+    box-shadow: 10px 10px 0 var(--shadow-color) !important;
+    padding: 40px !important;
+    color: var(--text-color) !important;
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+    font-family: var(--font-main) !important;
+    text-transform: uppercase !important;
+    color: var(--text-color) !important;
+}
+
+div:where(.swal2-container) .swal2-html-container {
+    font-family: var(--font-tech) !important;
+    color: var(--text-color) !important;
+}
+
+/* Inputs del SweetAlert */
+div:where(.swal2-container) input.swal2-input {
+    background: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+}
+div:where(.swal2-container) input.swal2-input:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: none !important;
+}
+
+/* Botón Confirmar */
+div:where(.swal2-container) button.swal2-styled.swal2-confirm {
+    background-color: var(--tech-bg) !important; /* Negro en día, Blanco en noche */
+    color: var(--tech-text) !important;
+    border: 2px solid var(--tech-bg) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-main) !important;
+    text-transform: uppercase !important;
+    font-weight: 800 !important;
+    box-shadow: none !important;
+}
+div:where(.swal2-container) button.swal2-styled.swal2-confirm:hover {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: #ffffff !important;
+}
+
+/* Botón Cancelar */
+div:where(.swal2-container) button.swal2-styled.swal2-cancel {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+    border: 2px solid var(--text-color) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-tech) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+}
+div:where(.swal2-container) button.swal2-styled.swal2-cancel:hover {
+    background-color: var(--text-color) !important;
+    color: var(--bg-color) !important;
+}
+
+/* Iconos */
+div:where(.swal2-icon).swal2-success {
+    border-color: var(--text-color) !important;
+    color: var(--text-color) !important;
+}
+div:where(.swal2-icon).swal2-success [class^=swal2-success-line] {
+    background-color: var(--text-color) !important; 
+}

@@ -1,0 +1,176 @@
+/* =========================================
+   NEWSLETTER.CSS - LIMPIO (SIN !IMPORTANT)
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Poppins:wght@800&display=swap');
+
+/* --- 1. ESTILOS BASE (ESCRITORIO) --- */
+
+.newsletter-section {
+    background-color: #f2f2f2; /* Gris claro */
+    color: #111111;
+    padding: 80px 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 3px solid #111;
+    border-bottom: 3px solid #111;
+    box-sizing: border-box;
+}
+
+.newsletter-container {
+    width: 100%;
+    max-width: 1200px;
+    display: grid; 
+    /* Escritorio: 2 Columnas */
+    grid-template-columns: 1.1fr 0.9fr; 
+    gap: 40px;
+    align-items: center;
+    text-align: left;
+}
+
+/* Títulos y Textos */
+.newsletter-content h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.newsletter-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #444444;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0;
+}
+
+/* Formulario */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: flex-start; /* Alineación izquierda por defecto */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 15px; /* Separación Input/Botón */
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #111;
+    color: #111;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    text-align: left; /* Texto a la izquierda */
+    transition: all 0.2s ease;
+}
+
+.newsletter-input::placeholder {
+    color: #999;
+}
+
+.newsletter-input:focus {
+    border-color: #333; /* Pequeño feedback visual al escribir */
+}
+
+.newsletter-btn {
+    padding: 0 35px;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: 2px solid #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.newsletter-btn:hover {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: #fff;
+}
+
+/* Checkbox Legal */
+.legal-check {
+    font-size: 0.85rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+
+.legal-check input {
+    accent-color: #000;
+    width: 18px;
+    height: 18px;
+}
+
+/* Feedback Errores */
+.mensaje-feedback-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.newsletter-input.input-error {
+    border-color: #e74c3c;
+    background-color: #fff5f5;
+}
+
+/* --- 2. MODO MÓVIL (Menos de 768px) --- */
+
+@media (max-width: 768px) {
+    .newsletter-container {
+        grid-template-columns: 1fr; /* 1 Columna */
+        text-align: center;         /* Todo centrado */
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .newsletter-content p {
+        margin: 0 auto 30px auto;
+    }
+
+    .newsletter-form {
+        align-items: center; /* Centrar formulario */
+    }
+
+    .input-group {
+        flex-direction: column; /* Apilar elementos */
+        gap: 12px;
+    }
+
+    .newsletter-input {
+        width: 100%;
+        text-align: center; /* Texto centrado en input */
+        box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+    }
+
+    .newsletter-btn {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .legal-check {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,32 @@
+/* --- FOOTER COMPACTO --- */
+.footer-compact {
+    background-color: #111; /* Siempre oscuro */
+    color: #fff;
+    padding: 0 4% 30px;
+    margin-top: auto;
+    font-family: var(--font-tech);
+    font-size: 0.75rem; letter-spacing: 1px;
+}
+
+.footer-line {
+    width: 100%; height: 1px; background-color: #333; margin-bottom: 20px;
+}
+
+.footer-content {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+}
+
+.brand-name { font-weight: 800; color: #fff; margin-right: 8px; }
+.brand-loc { color: #666; font-weight: 600; }
+
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a {
+    color: #888; text-decoration: none; transition: color 0.2s; text-transform: uppercase;
+}
+.footer-legal a:hover { color: #fff; }
+
+.footer-copy { color: #555; font-weight: 600; }
+
+@media (max-width: 768px) {
+    .footer-content { flex-direction: column; text-align: center; gap: 15px; }
+}

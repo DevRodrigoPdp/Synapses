@@ -1,0 +1,419 @@
+/* =========================================
+   DETALLE CARRITO - ADAPTABLE DARK MODE
+   ========================================= */
+
+/* --- LAYOUT GENERAL --- */
+.contenedor-carrito-global {
+    background: var(--bg-color); /* Adaptable */
+    min-height: 100vh;
+    padding: 60px 5%;
+    font-family: var(--font-tech);
+    color: var(--text-color);
+    transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+.header-pagina-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.brand-label-carrito {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.items-count {
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* --- GRID DE 2 COLUMNAS --- */
+.layout-carrito-split {
+    display: grid;
+    /* Productos (flexible) | Resumen (ancho fijo 380px) */
+    grid-template-columns: 1fr 380px; 
+    gap: 50px;
+}
+
+/* --- COLUMNA IZQUIERDA (PRODUCTOS) --- */
+.columna-productos {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.titulo-seccion {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.titulo-seccion.rojo { color: var(--accent-color); border-color: var(--accent-color); }
+
+/* --- ITEM ROW (Diseño horizontal) --- */
+.carrito-item-row {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg); /* Adaptable */
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    margin-bottom: 15px;
+    gap: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.item-img-wrapper {
+    width: 150px; 
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--bg-color); /* Fondo contraste dentro de la tarjeta */
+    border: 1px solid var(--border-color);
+    padding: 5px;
+}
+
+.item-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+/* Atenuar brillo de imagen en modo oscuro */
+html.dark .item-img-wrapper img {
+    filter: brightness(0.9);
+}
+
+.item-texts {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.item-cat {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 4px;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.controles-minimal {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+}
+
+.controles-minimal button {
+    background: none;
+    border: none;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.controles-minimal span {
+    padding: 0 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.item-price {
+    font-family: var(--font-tech);
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 90px;
+    text-align: right;
+    color: var(--text-color);
+}
+
+/* --- COLUMNA DERECHA (RESUMEN STICKY) --- */
+.columna-resumen {
+    position: relative;
+}
+
+.card-resumen-sticky {
+    background: var(--card-bg);
+    border: 1px solid var(--text-color); /* Borde destacado */
+    padding: 30px;
+    position: sticky;
+    top: 100px; /* Ajustado para no chocar con header */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Sombra en modo oscuro para dar profundidad */
+html.dark .card-resumen-sticky {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+}
+
+.titulo-resumen {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    color: var(--text-color);
+    font-weight: 800;
+}
+
+.desglose-precios {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    color: #666;
+}
+html.dark .desglose-precios { color: #aaa; }
+
+.fila-desglose {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gratis-txt { color: #27ae60; font-weight: 700; }
+
+.total-final-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid var(--text-color);
+    padding-top: 20px;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+.precio-grande {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+/* --- BOTONES Y EXTRAS --- */
+.acciones-verticales {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-negro-solido {
+    width: 100%;
+    /* Inversión de colores: Negro en día, Blanco/Gris en noche */
+    background: var(--text-color);
+    color: var(--bg-color);
+    
+    padding: 18px;
+    border: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-tech);
+    text-transform: uppercase;
+}
+
+.btn-negro-solido:hover {
+    background: var(--accent-color);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-outline-rojo {
+    width: 100%;
+    background: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-tech);
+    transition: all 0.2s;
+}
+
+.btn-outline-rojo:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.seguridad-logos {
+    margin-top: 20px;
+    text-align: center;
+    color: #888;
+    font-size: 0.75rem;
+}
+
+.info-garantia {
+    margin-top: 20px;
+    padding: 15px;
+    background: #eaeaea; /* Gris claro fijo para día */
+    border-radius: 2px;
+    font-size: 0.85rem;
+    color: #444;
+}
+
+/* Fondo garantía en modo oscuro */
+html.dark .info-garantia {
+    background: #1a1a1a;
+    color: #aaa;
+    border: 1px solid #333;
+}
+
+/* --- ESTILOS ESTADO CARRITO VACÍO --- */
+
+.carrito-vacio-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 80px 40px;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.carrito-vacio-box .brand-label-carrito {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.vacio-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+}
+
+.vacio-info p {
+    font-family: var(--font-tech);
+    color: #888;
+    margin-bottom: 40px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* --- RESPONSIVE OPTIMIZADO --- */
+
+@media (max-width: 1024px) {
+    .contenedor-carrito-global { padding: 40px 20px; }
+    .layout-carrito-split { grid-template-columns: 1fr; gap: 30px; }
+    .columna-resumen { order: 1; }
+    .card-resumen-sticky { position: static; margin-top: 10px; }
+}
+
+@media (max-width: 768px) {
+    .contenedor-carrito-global { padding: 80px 15px 40px 15px; }
+    .header-pagina-carrito { margin-bottom: 20px; flex-direction: row; align-items: center; border-bottom-width: 1px; }
+    .brand-label-carrito { font-size: 1.4rem; }
+    .items-count { font-size: 0.8rem; }
+
+    /* Compact Card */
+    .carrito-item-row { padding: 15px 10px; gap: 15px; align-items: flex-start; }
+    .item-img-wrapper { width: 80px; height: 60px; padding: 0; border: none; }
+    .item-info-wrapper { flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; }
+    .item-texts { gap: 2px; }
+    .item-name { font-size: 0.95rem; line-height: 1.2; }
+    .item-cat { font-size: 0.7rem; }
+    .item-actions { width: 100%; justify-content: space-between; margin-top: 5px; }
+    .controles-minimal { height: 30px; }
+    .controles-minimal button { padding: 0 10px; font-size: 1rem; }
+    .item-price { font-size: 1rem; }
+    
+    .card-resumen-sticky { padding: 20px; border: 1px solid var(--border-color); }
+    .btn-negro-solido, .btn-outline-rojo { padding: 15px; font-size: 0.8rem; }
+}
+
+@media (max-width: 380px) {
+    .item-img-wrapper { width: 60px; height: 50px; }
+    .brand-label-carrito { font-size: 1.2rem; }
+    .item-name { font-size: 0.85rem; }
+}
+
+/* --- MODAL PDF SYNAPSES (Estilo Consola) --- */
+/* Mantenemos estilo oscuro fijo para el look "Hacker/Console" */
+.pdf-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex; justify-content: center; align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.pdf-modal-content {
+    width: 90%; max-width: 1000px; height: 85vh;
+    background: #111; /* Fijo oscuro */
+    border: 1px solid #333;
+    display: flex; flex-direction: column;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+.pdf-modal-header {
+    height: 60px; background: #000; border-bottom: 1px solid #333;
+    display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+}
+
+.pdf-modal-title {
+    color: #2ecc71; font-family: monospace; letter-spacing: 2px; font-weight: 800; font-size: 0.9rem;
+}
+
+.pdf-close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+.pdf-viewer-container { flex: 1; background: #333; }
+
+.pdf-modal-footer {
+    height: 80px; background: #000; border-top: 1px solid #333;
+    display: flex; justify-content: flex-end; align-items: center; padding: 0 30px;
+}
+
+.btn-download-final {
+    background: #2ecc71; color: #000; text-decoration: none;
+    padding: 12px 30px; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: all 0.3s;
+}
+
+.btn-download-final:hover { background: #fff; box-shadow: 0 0 15px #2ecc71; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

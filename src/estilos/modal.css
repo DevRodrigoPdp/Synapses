@@ -1,0 +1,261 @@
+/* ========================================= */
+/* MODAL - ESTILO TECHNICAL / SYNAPSES LAB   */
+/* ========================================= */
+
+/* 1. FONDO (OVERLAY) - Efecto de "cristal esmerilado" */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    /* Fondo semi-transparente blanco técnico */
+    background-color: rgba(255, 255, 255, 0.9); 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+    
+    /* Animación de entrada */
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* 2. CAJA DEL MODAL */
+.modal-content {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 50px 40px;
+    width: 90%;
+    max-width: 600px; /* Un poco más ancho para formularios técnicos */
+    
+    /* BORDES TÉCNICOS */
+    border: 2px solid #000000; /* Borde negro sólido */
+    border-radius: 0; /* Recto, cero curvas */
+    
+    /* Sombra dura para efecto "flotante" pero técnico */
+    box-shadow: 15px 15px 0px rgba(0,0,0,0.05); 
+    
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    
+    /* Animación */
+    animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3. BOTÓN DE CERRAR (X Técnica) */
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px; /* Botón grande en la esquina */
+    height: 50px;
+    background: #000; /* Fondo negro */
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.2s ease;
+    
+    /* Centrar la X */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent; /* Ocultamos la letra "X" del HTML para usar pseudo-elementos */
+    font-size: 0; 
+}
+
+/* Dibujamos la X con CSS para que sea perfecta */
+.close-btn::before,
+.close-btn::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px; /* Grosor técnico */
+    background-color: #fff; /* X blanca */
+    transition: transform 0.3s ease;
+}
+
+.close-btn::before { transform: rotate(45deg); }
+.close-btn::after { transform: rotate(-45deg); }
+
+.close-btn:hover {
+    background-color: #ef4444; /* Rojo Synapses al pasar el ratón */
+}
+
+/* Efecto giro al hover (opcional, muy técnico) */
+.close-btn:hover::before { transform: rotate(135deg); }
+.close-btn:hover::after { transform: rotate(45deg); }
+
+
+/* ========================================= */
+/* ESTILOS INTERNOS (Para lo que metas dentro) */
+/* ========================================= */
+
+/* Títulos dentro del modal */
+.modal-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    line-height: 1;
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+}
+
+/* Inputs Técnicos (Si los usas dentro) */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f4f4f4; 
+    border: 1px solid #ddd;
+    border-radius: 0; 
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    outline: none;
+    box-sizing: border-box; /* Importante para que no se salga */
+    transition: all 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    background-color: #fff;
+    border-color: #000; 
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.1); 
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+/* Botones de Acción (Si los usas dentro) */
+.modal-content button[type="submit"],
+.btn-primary {
+    display: block;
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 0;
+    margin-top: 10px;
+}
+
+.modal-content button[type="submit"]:hover,
+.btn-primary:hover {
+    background-color: #ef4444; 
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* MODO OSCURO (Opcional, si tu web lo tiene) */
+[data-theme='dark'] .modal-content {
+    background-color: #1a1a1a;
+    color: #fff;
+    border-color: #333;
+}
+[data-theme='dark'] .modal-content h2 {
+    color: #fff;
+    border-bottom-color: #333;
+}
+[data-theme='dark'] .modal-content input {
+    background-color: #2a2a2a;
+    border-color: #333;
+    color: #fff;
+}
+[data-theme='dark'] .modal-content input:focus {
+    border-color: #ef4444;
+}
+
+/* ========================================= */
+/* BOTÓN CANCELAR (ESTILO SECUNDARIO)        */
+/* ========================================= */
+
+.btn-cancel {
+    display: block;
+    width: 100%;
+    
+    /* Fondo transparente para diferenciarlo del principal */
+    background-color: transparent; 
+    
+    /* Borde gris técnico para que parezca desactivado hasta que interactúas */
+    border: 2px solid #e5e7eb; 
+    color: #888; /* Texto gris */
+    
+    padding: 16px;
+    margin-top: 10px; /* Separación del botón de guardar */
+    
+    /* Tipografía consistente */
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 0; /* Recto, marca de la casa */
+}
+
+/* HOVER: Se activa y se pone serio (o rojo de alerta) */
+.btn-cancel:hover {
+    border-color: #000; /* El borde se pone negro sólido */
+    color: #000;        /* El texto se pone negro */
+    background-color: #f4f4f4; /* Fondo sutil */
+}
+
+/* OPCIONAL: Si prefieres que el Cancelar se ponga ROJO al hover (estilo alerta) */
+/* Descomenta esto si te gusta más agresivo: */
+/*
+.btn-cancel:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background-color: transparent;
+}
+*/
+
+/* --- AJUSTE DARK MODE --- */
+[data-theme='dark'] .btn-cancel {
+    border-color: #333;
+    color: #888;
+}
+
+[data-theme='dark'] .btn-cancel:hover {
+    border-color: #fff;
+    color: #fff;
+    background-color: #333;
+}

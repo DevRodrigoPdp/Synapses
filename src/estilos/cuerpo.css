@@ -1,0 +1,235 @@
+/* =========================================
+   CUERPO.CSS - DISEÑO TÉCNICO PRO V2
+   ========================================= */
+
+/* --- CONFIGURACIÓN GLOBAL --- */
+html { scroll-behavior: smooth; }
+
+.contenido-pagina {  
+    background: var(--bg-color);
+    min-height: 100vh;
+    padding: 100px 4%; 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.4s ease;
+}
+
+/* Título */
+.h3-Productos {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    align-self: flex-start;
+    max-width: 1600px;
+    width: 100%;
+    color: var(--text-color);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Título en Modo Oscuro: Un ligero resplandor digital */
+html.dark .h3-Productos {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.15);
+}
+
+/* --- GRID --- */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 0; 
+    width: 100%;
+    max-width: 1600px; 
+    /* Bordes del grid se adaptan al color del texto */
+    border-top: 2px solid var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+    border-left: 1px solid var(--border-color);
+}
+html.dark .product-list {
+    border-color: #333; /* Bordes del grid más sutiles en oscuro */
+}
+
+
+/* =========================================
+   LAS NUEVAS CARDS (Aquí está el cambio)
+   ========================================= */
+
+.product-card {
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0; 
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding-bottom: 20px;
+    overflow: hidden; /* Necesario para efectos de luz */
+}
+
+/* --- MODO OSCURO: BASE DE LA TARJETA --- */
+html.dark .product-card {
+    /* Fondo metálico sutil en lugar de plano */
+    background: linear-gradient(160deg, #1a1a1a 0%, #0d0d0d 100%);
+    border-color: #222; /* Bordes muy oscuros */
+    /* Sutil luz superior para dar volumen */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+
+/* --- EFECTO HOVER GENERAL --- */
+.product-card:hover {
+    z-index: 2;
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -10px var(--shadow-color);
+    border-color: transparent;
+}
+
+/* --- MODO OSCURO: HOVER "REACTOR" --- */
+html.dark .product-card:hover {
+    transform: translateY(-6px) scale(1.01); /* Ligera expansión */
+    /* Doble sombra: una línea roja nítida y un resplandor rojo difuso debajo */
+    box-shadow: 
+        0 0 0 1px var(--accent-color), /* Borde neón */
+        0 25px 50px -15px rgba(231, 76, 60, 0.3); /* Resplandor ambiental */
+}
+
+
+/* --- CABECERA TARJETA --- */
+.product-card-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 30px 25px 0 25px; width: 100%; box-sizing: border-box; z-index: 10; position: relative;
+}
+
+.brand-label {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 900; letter-spacing: -0.5px;
+    color: var(--text-color); margin: 0;
+}
+html.dark .brand-label { color: #fff; letter-spacing: 0.5px; }
+
+.compare-label {
+    font-family: var(--font-tech); font-size: 9px; font-weight: 700; color: #999; letter-spacing: 1px; margin-top: 5px; text-transform: uppercase;
+}
+html.dark .compare-label { color: #555; font-family: monospace; } /* Look más técnico */
+
+
+/* --- IMAGEN (EL FOCO DRAMÁTICO) --- */
+.product-image-container {
+    padding: 30px 30px 10px 30px; 
+    background: var(--card-bg); 
+    display: flex; justify-content: center; align-items: center;
+    min-height: 260px; position: relative;
+    transition: background 0.3s ease;
+}
+
+/* --- MODO OSCURO: FOCO DE ESCENARIO --- */
+html.dark .product-image-container {
+    /* Quitamos el borde inferior para que se una con el texto */
+    border-bottom: none;
+    /* MAGIA: Degradado radial. Luz en el centro, oscuridad en los bordes */
+    background: radial-gradient(circle at center 60%, #2a2a2a 0%, #121212 70%);
+}
+
+/* El foco se vuelve más intenso al hacer hover */
+html.dark .product-card:hover .product-image-container {
+     background: radial-gradient(circle at center 60%, #333 0%, #161616 70%);
+}
+
+
+.product-image {
+    width: 100%; max-height: 220px; object-fit: contain;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: brightness(1);
+    /* Un ligero drop-shadow para despegar la bici del fondo */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+}
+
+/* Modo oscuro: Imagen más dramática */
+html.dark .product-image {
+    /* Aumentamos contraste y bajamos brillo para que parezca iluminada por un foco */
+    filter: brightness(0.9) contrast(1.1) drop-shadow(0 15px 20px rgba(0,0,0,0.5));
+    transform: scale(0.98); /* Un pelín más pequeña en reposo */
+}
+
+/* Hover en modo oscuro: La bici se "enciende" y se acerca */
+html.dark .product-card:hover .product-image {
+    filter: brightness(1.05) contrast(1.1) drop-shadow(0 20px 30px rgba(0,0,0,0.7));
+    transform: scale(1.05) translateY(-5px);
+}
+
+
+/* --- INFO --- */
+.product-info-container {
+    padding: 10px 25px 25px 25px;
+    background: transparent; /* Transparente para heredar el degradado */
+    display: flex; flex-direction: column; gap: 5px; flex-grow: 1;
+    position: relative; z-index: 2;
+}
+
+.product-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem; color: var(--text-color); font-weight: 700; margin: 0; line-height: 1.1; text-transform: uppercase;
+}
+html.dark .product-name { color: #fff; }
+
+.product-price {
+    font-family: var(--font-tech);
+    font-size: 1rem; font-weight: 600; color: var(--text-color); opacity: 0.9; margin: 5px 0 0 0;
+}
+html.dark .product-price { color: #fff; font-weight: 800; }
+
+.product-description {
+    font-family: var(--font-tech);
+    font-size: 0.85rem; color: #666; line-height: 1.5; margin: 10px 0 20px 0;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+html.dark .product-description { color: #888; }
+
+/* --- BOTÓN --- */
+.buy-button {
+    background: var(--text-color); 
+    color: var(--bg-color);
+    font-family: var(--font-tech);
+    font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+    padding: 15px; border: none; cursor: pointer;
+    width: calc(100% - 50px); margin: auto 25px 0 25px;
+    transition: all 0.2s;
+    position: relative; overflow: hidden;
+}
+/* Efecto de brillo en el botón al pasar el mouse */
+.buy-button::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+}
+.buy-button:hover::after { left: 100%; }
+
+.buy-button:hover {
+    background: var(--accent-color); color: #fff;
+    transform: translateY(-2px); box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+/* --- REBAJAS --- */
+.badge-rebaja-top {
+    position: absolute; top: 70px; left: 25px;
+    background: var(--accent-color); color: white;
+    padding: 3px 8px; font-family: var(--font-tech); font-size: 10px; font-weight: 800; letter-spacing: 1px; z-index: 5;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.precios-rebajados-container { display: flex; align-items: center; gap: 10px; }
+.price-sale { color: var(--accent-color) !important; font-weight: 800; }
+.etiqueta-oferta-mini {
+    font-size: 9px; font-weight: 800; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 1px 5px; text-transform: uppercase;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1400px) { .product-list { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 900px) { .product-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { 
+    .product-list { grid-template-columns: 1fr; border-left: none; border-right: none; }
+    .product-card { border-right: none; border-bottom: 1px solid var(--border-color); }
+}

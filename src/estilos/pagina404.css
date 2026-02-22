@@ -1,0 +1,114 @@
+/* --- CONTENEDOR PRINCIPAL (Pantalla Completa) --- */
+.Pagina404Container {
+    height: 100vh;
+    width: 100%;
+    background-color: #050505; /* Casi negro */
+    background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden; /* Para que nada se salga */
+    position: relative;
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- CONTENIDO CENTRAL --- */
+.contenido {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+    animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* --- EL NÚMERO 404 (Estilo "Blueprint" / Ingeniería) --- */
+.contenido h1 {
+    font-size: 15rem; /* Gigante */
+    line-height: 0.8;
+    margin: 0;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+    
+    /* TRUCO: Texto transparente con borde (Outline) */
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.15); /* Borde sutil */
+    
+    /* Opcional: Imagen de fondo dentro del texto si quieres textura */
+    background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Sombra para dar profundidad */
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+    
+    user-select: none; /* No seleccionable */
+}
+
+/* --- TÍTULO (Página no encontrada) --- */
+.contenido h2 {
+    font-size: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: -20px; /* Se superpone un poco al 404 */
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+/* --- DESCRIPCIÓN --- */
+.contenido p {
+    color: #888;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+}
+
+/* --- BOTÓN DE VOLVER --- */
+.contenido a {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 15px 40px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05); /* Fondo muy sutil */
+}
+
+.contenido a:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+/* --- ANIMACIÓN DE ENTRADA --- */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .contenido h1 {
+        font-size: 8rem; /* Más pequeño en móvil */
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    }
+    
+    .contenido h2 {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        margin-top: 10px;
+    }
+}

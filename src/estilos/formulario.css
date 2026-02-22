@@ -1,0 +1,77 @@
+/* Contenedor principal */
+.prod-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    flex-direction: row; 
+}
+
+/* Panel izquierdo: Formulario */
+.prod-left {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    animation-name: prod-left-anim;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-delay: 1s;
+}
+
+/* Panel derecho: Imagen */
+.prod-right {
+    flex: 1;
+    position: relative;
+    background-image: url(https://img.redbull.com/images/c_limit,w_1500,h_1000/f_auto,q_auto/redbullcom/2015/10/29/1331756710367_6/a-rider-whips-in-whistler-mountain-bike-park);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 1s;
+}
+
+/* Encabezados */
+.prod-header > h2 { margin: 0; color: black; }
+.prod-header > h4 { margin-top: 10px; font-weight: normal; font-size: 15px; color: rgba(0,0,0,.4); }
+
+/* Formulario */
+.prod-form { max-width: 80%; display: flex; flex-direction: column; }
+.prod-form > p > a { color: #000; font-size: 14px; text-decoration: none; }
+.prod-form-field {
+    height: 46px;
+    padding: 0 16px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Rubik', sans-serif;
+    outline: 0;
+    transition: 0.2s;
+    margin-top: 20px;
+}
+.prod-form-field:focus { border-color: #0f7ef1; box-shadow: 0 0 5px rgba(15,126,241,0.5); }
+
+/* Botón */
+.prod-color { padding: 12px 10px; border: 0; background: linear-gradient(to right,#2c3e50 0%,#1c2833 100%); border-radius:3px; margin-top:10px; color:#fff; cursor:pointer; }
+
+/* Mensajes de error */
+.prod-error { color:red; font-size:12px; margin-top:5px; margin-bottom:0; }
+
+/* Animaciones */
+.prod-animation { animation-name: prod-move; animation-duration: 0.4s; animation-fill-mode: both; }
+.prod-a1 { animation-delay: 2s; }
+.prod-a2 { animation-delay: 2.1s; }
+.prod-a3 { animation-delay: 2.2s; }
+.prod-a4 { animation-delay: 2.3s; }
+.prod-a5 { animation-delay: 2.4s; }
+.prod-a6 { animation-delay: 2.5s; }
+.prod-a7 { animation-delay: 2.6s; }
+
+/* Keyframes */
+@keyframes prod-move {
+    0% { opacity:0; visibility:hidden; transform:translateY(-40px); }
+    100% { opacity:1; visibility:visible; transform:translateY(0); }
+}
+
+@keyframes prod-left-anim {
+    0% { opacity:0; width:0; }
+    100% { opacity:1; width:440px; padding:20px 40px; }
+}

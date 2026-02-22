@@ -1,0 +1,73 @@
+.formulario-elegante {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+    font-family: "Inter", system-ui, sans-serif;
+    border: 1px solid #e6e6e6;
+    box-shadow:
+        0 4px 16px rgba(0,0,0,0.06),
+        0 1px 3px rgba(0,0,0,0.03);
+    color: #3a3a3a;
+}
+
+.formulario-elegante label {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+.formulario-elegante input,
+.formulario-elegante textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    border: 1px solid #dcdcdc;
+    background: #fafafa;
+    color: #333333;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    text-align: center;
+}
+
+.formulario-elegante input:focus,
+.formulario-elegante textarea:focus {
+    background: #ffffff;
+    border-color: #9c9c9c;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
+    outline: none;
+}
+
+.formulario-elegante button {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 14px;
+    border: 1px solid #cfcfcf;
+    background: #f2f2f2;
+    color: #2f2f2f;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.formulario-elegante button:hover {
+    background: #e8e8e8;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.formulario-elegante .error {
+    color: #6c6c6c;
+    font-size: 0.82rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
