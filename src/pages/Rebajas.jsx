@@ -29,47 +29,44 @@ function Rebajas() {
                             rebajas.map((item) => (
                                 <div className="product-card" key={item.id}>
                                     
-                                    {/* Cabezal */}
-                                    <div className="product-card-header">
-                                        <h2 className="brand-label">SYNAPSES</h2>
-                                        <span className="compare-label">+ COMPARE</span>
-                                    </div>
-
-                                    {/* Badge de Descuento */}
-                                    {item.porcentaje && (
-                                        <div className="badge-rebaja-top">
-                                            -{item.porcentaje}%
-                                        </div>
-                                    )}
-
                                     <div className="product-image-container">
+                                        {/* Badges superiores incrustados en la foto */}
+                                        {item.porcentaje > 0 && (
+                                            <div className="new-badge">-{item.porcentaje}%</div>
+                                        )}
+                                        
+                                        <div className="brand-badge">SYNAPSES / OFERTA</div>
+                                        
+                                        {/* Fotografía principal */}
                                         <Link to={`/detalle/${item.id}`}>
-                                            <img src={item.imagen} alt={item.nombre} className="product-image" />
+                                            <img
+                                                src={item.imagen}
+                                                alt={item.nombre}
+                                                className="product-image"
+                                            />
                                         </Link>
+
+                                        {/* Banner interactivo (Hover) Inferior */}
+                                        <div className="hover-action-overlay" onClick={() => agregar(item)}>
+                                            <button className="hover-buy-btn">
+                                                AÑADIR AL CARRITO
+                                            </button>
+                                        </div>
                                     </div>
 
+                                    {/* Info extremadamente limpia (Solo nombre y precio, gris oscuro minúsculo) */}
                                     <div className="product-info-container">
                                         <h3 className="product-name">{item.nombre}</h3>
-
-                                        <div className="precios-rebajados-container">
-                                            <p className="product-price price-sale">
-                                                {Number(item.precio).toLocaleString('es-ES')} €
-                                            </p>
-                                            <span className="etiqueta-oferta-mini">OFERTA</span>
+                                        
+                                        <div className="product-price">
+                                            {item.porcentaje > 0 ? (
+                                                <span>{Number(item.precio - (item.precio * (item.porcentaje / 100))).toLocaleString('es-ES')} €</span>
+                                            ) : (
+                                                <span>{Number(item.precio).toLocaleString('es-ES')} €</span>
+                                            )}
                                         </div>
-
-                                        <p className="product-description">
-                                            {item.descripcion || "Rendimiento premium a un precio excepcional."}
-                                        </p>
-
-                                        {/* USAMOS LA NUEVA FUNCIÓN AGREGAR */}
-                                        <button
-                                            className="buy-button"
-                                            onClick={() => agregar(item)}
-                                        >
-                                            Añadir al carrito
-                                        </button>
                                     </div>
+                                    
                                 </div>
                             ))
                         ) : (

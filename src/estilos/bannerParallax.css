@@ -1,0 +1,104 @@
+/* =======================================
+   ESTILOS DEL BANNER PARALLAX PROMOCIONAL
+   ======================================= */
+
+.parallax-container {
+    /* Fotografía cruda y de alta calidad para el separador */
+    background-image: url('https://www.bielsa.com/wp-content/uploads/2024/10/cervelo-bielsa.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* ESTA ES LA CLAVE DEL EFECTO PARALLAX */
+    
+    height: 60vh; /* Ocupa un poco más de media pantalla */
+    min-height: 400px;
+    
+    /* ROMPER EL CONTENEDOR FLEX PARA CENTRAR EN PANTALLA REAL Ocupar 100vw */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+/* Oscurecemos la imagen para que el texto blanco sea super legible */
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.parallax-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.parallax-badge {
+    background: transparent;
+    color: #dfcdad; /* Color acento dorado minimalista */
+    border: 1px solid #dfcdad;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.parallax-title {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 15px 0 30px 0;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.parallax-title .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+}
+
+.parallax-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 16px 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.parallax-btn:hover {
+    background: #dfcdad;
+    color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .parallax-container { height: 40vh; margin: 40px 0; background-attachment: scroll; /* En móvil iOS falla el fixed, es mejor quitarlo */ }
+    .parallax-title { font-size: 2.5rem; }
+}

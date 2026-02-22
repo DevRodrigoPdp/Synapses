@@ -1,16 +1,38 @@
 import { Link } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
 import '../estilos/cuerpo.css';
 import VelocityBar from '../componentes/VelocityBar';
 import Portada from '../componentes/Portada';
+import BannerParallax from '../componentes/BannerParallax';
+import FiltrosLateral from '../componentes/FiltrosLateral';
 
 // IMPORTAMOS LOS HOOKS
 import { useProductos } from '../servicios/context/ProductosContext';
 import { useCarrito } from '../servicios/context/CarritoContext';
 
 function Cuerpo() {
-    // 1. Usamos el contexto en lugar de props o useEffects locales
     const { productos, loading } = useProductos();
     const { agregar } = useCarrito();
+
+    // ESTADO DEL FILTRO
+    const [categoriaActiva, setCategoriaActiva] = useState('Todas');
+
+    // Extraer categorías únicas disponibles
+    const categoriasUnicas = useMemo(() => {
+        if (!productos || productos.length === 0) return ['Todas'];
+        const cats = new Set(productos.filter(p => !p.ocasion && p.categoria).map(p => p.categoria));
+        return ['Todas', ...Array.from(cats)];
+    }, [productos]);
+
+    // Filtrar los productos según la selección
+    const productosParaMostrar = useMemo(() => {
+        if (!productos) return [];
+        let filtrados = productos.filter(item => item.ocasion === false);
+        if (categoriaActiva !== 'Todas') {
+            filtrados = filtrados.filter(item => item.categoria === categoriaActiva);
+        }
+        return filtrados;
+    }, [productos, categoriaActiva]);
 
     if (loading) return <div style={{padding: '50px', textAlign: 'center'}}>CARGANDO CATALOGO SYNAPSES...</div>;
 
@@ -19,56 +41,103 @@ function Cuerpo() {
             <VelocityBar />
             <Portada /> 
            
-
             <div className="contenido-pagina">
                 <div className="seccion-productos" id="productos">
 
                     <h3 className='h3-Productos'>NUESTROS PRODUCTOS</h3>
 
-                    <div className="product-list">
-                        {productos
-                            .filter(item => item.ocasion === false) // Filtramos por no ocasión
-                            .map((item) => (
-                                <div className="product-card" key={item.id}>
-                                    
-                                    {/* Cabecera */}
-                                    <div className="product-card-header">
-                                        <h2 className="brand-label">SYNAPSES</h2>
-                                        <span className="compare-label">+ COMPARE</span>
-                                    </div>
+                    {/* SEXTA FASE: Layout Flex para Barra Lateral + Grid */}
+                    <div style={{ display: 'flex', width: '100%', maxWidth: '1800px', margin: '0 auto', flexDirection: 'row', flexWrap: 'wrap' }}>
+                        
+                        {/* BARRA LATERAL IZQUIERDA (Filtros) */}
+                        <FiltrosLateral 
+                            categorias={categoriasUnicas} 
+                            categoriaActiva={categoriaActiva} 
+                            setCategoriaActiva={setCategoriaActiva} 
+                        />
+                        
+                        {/* CONTENEDOR DERECHO (Grid Productos) */}
+                        <div style={{ flex: 1, minWidth: '300px' }}>
+                            
+                            {/* QUINTA FASE: Grid Partido con Parallax Intermedio */}
+                            {/* PRIMERA MITAD DEL GRID */}
+                            <div className="product-list" style={{ maxWidth: '100%', margin: 0 }}>
+                                {productosParaMostrar
+                                    .slice(0, 6) /* Mostramos solo las primeras 6 */
+                                    .map((item) => (
+                                        <div className="product-card" key={item.id}>
+                                            <div className="product-image-container">
+                                                {item.porcentaje > 0 && <div className="new-badge">-{item.porcentaje}%</div>}
+                                                {item.porcentaje === 0 && <div className="new-badge">NEW</div>}
+                                                <div className="brand-badge">SYNAPSES / EXCLUSIVA</div>
+                                                <Link to={`/detalle/${item.id}`}>
+                                                    <img src={item.imagen} alt={item.nombre} className="product-image" />
+                                                </Link>
+                                                <div className="hover-action-overlay" onClick={() => agregar(item)}>
+                                                    <button className="hover-buy-btn">AÑADIR AL CARRITO</button>
+                                                </div>
+                                            </div>
+                                            <div className="product-info-container">
+                                                <h3 className="product-name">{item.nombre}</h3>
+                                                <div className="product-price">
+                                                    {item.porcentaje > 0 ? (
+                                                        <span>{Number(item.precio - (item.precio * (item.porcentaje / 100))).toLocaleString('es-ES')} €</span>
+                                                    ) : (
+                                                        <span>{Number(item.precio).toLocaleString('es-ES')} €</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
 
-                                    {/* Imagen */}
-                                    <div className="product-image-container">
-                                        <Link to={`/detalle/${item.id}`}>
-                                            <img
-                                                src={item.imagen}
-                                                alt={item.nombre}
-                                                className="product-image"
-                                            />
-                                        </Link>
-                                    </div>
+                            {/* BANNER PROMOCIONAL PARALLAX A MITAD DE PÁGINA */}
+                            {productosParaMostrar.length > 6 && (
+                                <BannerParallax />
+                            )}
 
-                                    {/* Info */}
-                                    <div className="product-info-container">
-                                        <h3 className="product-name">{item.nombre}</h3>
-                                        <p className="product-price">
-                                            {Number(item.precio).toLocaleString('es-ES')} €
-                                        </p>
-                                        <p className="product-description">
-                                            {item.descripcion || "Ingeniería de vanguardia."}
-                                        </p>
-
-                                        {/* USAMOS LA FUNCIÓN AGREGAR DEL CONTEXTO */}
-                                        <button
-                                            className="buy-button"
-                                            onClick={() => agregar(item)}
-                                        >
-                                            Añadir al carrito
-                                        </button>
-                                    </div>
+                            {/* SEGUNDA MITAD DEL GRID */}
+                            {productosParaMostrar.length > 6 && (
+                                <div className="product-list" style={{ maxWidth: '100%', margin: 0 }}>
+                                    {productosParaMostrar
+                                        .slice(6) /* Mostramos de la 6 en adelante */
+                                        .map((item) => (
+                                            <div className="product-card" key={item.id}>
+                                                <div className="product-image-container">
+                                                    {item.porcentaje > 0 && <div className="new-badge">-{item.porcentaje}%</div>}
+                                                    {item.porcentaje === 0 && <div className="new-badge">NEW</div>}
+                                                    <div className="brand-badge">SYNAPSES / EXCLUSIVA</div>
+                                                    <Link to={`/detalle/${item.id}`}>
+                                                        <img src={item.imagen} alt={item.nombre} className="product-image" />
+                                                    </Link>
+                                                    <div className="hover-action-overlay" onClick={() => agregar(item)}>
+                                                        <button className="hover-buy-btn">AÑADIR AL CARRITO</button>
+                                                    </div>
+                                                </div>
+                                                <div className="product-info-container">
+                                                    <h3 className="product-name">{item.nombre}</h3>
+                                                    <div className="product-price">
+                                                        {item.porcentaje > 0 ? (
+                                                            <span>{Number(item.precio - (item.precio * (item.porcentaje / 100))).toLocaleString('es-ES')} €</span>
+                                                        ) : (
+                                                            <span>{Number(item.precio).toLocaleString('es-ES')} €</span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
-                            ))
-                        }
+                            )}
+
+                            {productosParaMostrar.length === 0 && (
+                                <div style={{ padding: '50px 0', textAlign: 'center', opacity: 0.5, letterSpacing: '2px', fontFamily: 'Inter, sans-serif' }}>
+                                    NO HAY PRODUCTOS EN ESTA CATEGORÍA
+                                </div>
+                            )}
+
+                        </div>
                     </div>
                 </div>
             </div>

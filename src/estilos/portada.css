@@ -1,15 +1,26 @@
 /* Importamos fuentes por si acaso no están cargadas */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;900&display=swap');
 
-.hero-container {
-    /* Imagen de fondo espectacular */
-    background-image: url('https://www.bielsa.com/wp-content/uploads/2024/10/BIELSATROCS.webp');
+.hero-carousel {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background-color: #111; /* Fondo negro base mientras cargan imgs */
+}
+
+/* Individual slides */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Efecto Parallax (fijo al hacer scroll) */
-    height: 90vh; /* Ocupa casi toda la pantalla */
-    width: 100%;
-    position: relative;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: flex-start; /* Alineado a la izquierda */
@@ -17,48 +28,69 @@
     box-sizing: border-box;
     color: white;
     font-family: 'Poppins', sans-serif;
+    
+    /* Animation base: Crossfade suave */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out, transform 10s linear;
+    transform: scale(1.05); /* Efecto Pan zoom sutil */
 }
 
-/* Capa oscura degradada para leer el texto sobre la foto */
+/* Frame activo (visible) */
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* Capa oscura degradada para centrarse en leer el texto lateral */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
     z-index: 1;
 }
 
+/* Contenido dentro del Slide */
 .hero-content {
     position: relative;
     z-index: 2; /* Por encima de la capa oscura */
-    max-width: 600px;
-    animation: fadeInUp 1s ease-out;
+    max-width: 700px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease 0.6s; /* Delay para que el fondo haga de entrada antes del texto */
+}
+
+.hero-slide.active .hero-content {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .hero-badge {
     background: #ff4757;
     color: white;
-    padding: 5px 12px;
+    padding: 6px 14px;
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
     display: inline-block;
 }
 
 .hero-title {
     font-size: 5rem;
-    line-height: 0.9;
+    line-height: 0.95;
     font-weight: 900;
     margin: 10px 0 25px 0;
     letter-spacing: -2px;
     text-transform: uppercase;
 }
 
-/* Efecto de texto hueco (Outline) */
+/* Efecto de texto hueco (Outline) - muy pro */
 .text-outline {
     color: transparent;
     -webkit-text-stroke: 2px #fff;
@@ -66,53 +98,88 @@
 
 .hero-subtitle {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.6;
-    color: #ddd;
+    color: #e5e5e5;
     margin-bottom: 40px;
     font-weight: 400;
     border-left: 3px solid #ff4757;
     padding-left: 20px;
 }
 
+/* Call to Action */
 .btn-hero {
     background: #fff;
-    color: #000;
-    padding: 18px 40px;
+    color: #111;
+    padding: 20px 45px;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: 900;
     font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
     letter-spacing: 2px;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-block;
+    border: 2px solid #fff;
 }
 
 .btn-hero:hover {
-    background: #000;
+    background: transparent;
     color: #fff;
-    transform: translateY(-5px);
 }
 
-/* Indicador de scroll animado */
+/* --- CONTROLES DEL SLIDER (Puntitos) --- */
+.hero-dots {
+    position: absolute;
+    bottom: 50px;
+    left: 8%;
+    background: transparent;
+    z-index: 10;
+    display: flex;
+    gap: 15px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.4s ease, transform 0.4s ease;
+    padding: 0;
+    outline: none;
+}
+
+.dot:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dot.active {
+    background-color: #fff;
+    transform: scale(1.4);
+}
+
+/* --- SCROLL INDICATOR ANIMADO --- */
 .scroll-indicator {
     position: absolute;
-    bottom: 40px;
+    bottom: 50px;
     right: 50px;
-    z-index: 2;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    color: rgba(255,255,255,0.6);
+    gap: 12px;
+    color: rgba(255,255,255,0.7);
     font-family: 'Inter', sans-serif;
     font-size: 0.7rem;
+    font-weight: 700;
     letter-spacing: 2px;
 }
 
 .linea-scroll {
     width: 1px;
     height: 60px;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.2);
     position: relative;
     overflow: hidden;
 }
@@ -125,25 +192,31 @@
     width: 100%;
     height: 50%;
     background: #fff;
-    animation: scrollDown 2s infinite;
+    animation: scrollDown 2s infinite cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* Animaciones */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* Animaciones de utilidades */
 @keyframes scrollDown {
     0% { top: -100%; }
     100% { top: 100%; }
 }
 
-/* Responsive */
+/* --- RESPONSIVE MODES --- */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 4rem; }
+}
+
 @media (max-width: 768px) {
     .hero-title { font-size: 3rem; }
-    .hero-container { justify-content: center; text-align: center; }
-    .hero-subtitle { border-left: none; padding-left: 0; }
-    .hero-overlay { background: rgba(0,0,0,0.6); } /* Fondo más oscuro en móvil */
-    .scroll-indicator { display: none; }
+    .hero-slide { justify-content: center; text-align: center; }
+    .hero-subtitle { border-left: none; padding-left: 0; font-size: 1rem; }
+    .hero-overlay { background: rgba(0,0,0,0.6); } /* En móvil fondo parejo oscuro */
+    
+    .hero-dots { 
+        left: 0; 
+        right: 0; 
+        justify-content: center; 
+        bottom: 30px; 
+    }
+    .scroll-indicator { display: none; } /* Oculto en móvil por espacio */
 }

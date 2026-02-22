@@ -80,73 +80,53 @@ function DetalleProducto() {
             {/* SECCIÓN PRINCIPAL (HERO) */}
             <div className="detalle-container wide-layout">
                 
-                {/* COLUMNA IZQUIERDA: IMAGEN + INDICADOR */}
+                {/* COLUMNA IZQUIERDA: IMAGEN GIGANTE */}
                 <div className="col-imagen-expanded">
                     <div className="imagen-principal-wrapper">
                         <img 
                             src={infoProducto.imagen} 
                             alt={infoProducto.nombre} 
                             className="img-main"
-                            style={{ mixBlendMode: 'normal' }}
                         />
                     </div>
-                    
-                    <div className="scroll-indicator-wrapper">
-                        <div className="mouse-scroll">
-                            <span className="mouse-wheel"></span>
-                        </div>
-                        <span className="scroll-text">SCROLL PARA DATOS TÉCNICOS</span>
-                    </div>
+                    {/* Eliminado indicador de scroll, la imagen debe ser limpia */}
                 </div>
 
-                {/* COLUMNA DERECHA: INFO Y COMPRA */}
+                {/* COLUMNA DERECHA: INFO Y COMPRA STICKY */}
                 <div className="col-info-expanded">
                     <div className="product-header">
-                        <h2 className="marca">SYNAPSES LAB // SERIES</h2>
+                        <h2 className="marca">SYNAPSES / BIKES</h2>
                         <h1 className="titulo">{infoProducto.nombre}</h1>
                         <div className="badges-row">
                             <div className="stock-badge">
-                                <span className="dot-green"></span> DISPONIBLE
+                                EN STOCK
                             </div>
-                            <span className="sku-badge">REF: SYN-{infoProducto.id}</span>
+                            <span className="sku-badge">REF: {infoProducto.id}XY</span>
                         </div>
                     </div>
 
                     <div className="precio-block-large">
                         <span className="precio">{formatearMoneda(infoProducto.precio)}</span>
                         <div className="financiacion">
-                            <span>Financiación disponible: 12 cuotas de {formatearMoneda(infoProducto.precio / 12)}</span>
-                        </div>
-                    </div>
-
-                    <div className="highlights-grid">
-                        <div className="hl-item">
-                            <span className="hl-icon">⚡</span>
-                            <span className="hl-text">AERO DYNAMICS</span>
-                        </div>
-                        <div className="hl-item">
-                            <span className="hl-icon">⚖️</span>
-                            <span className="hl-text">ULTRA LIGHT</span>
-                        </div>
-                        <div className="hl-item">
-                            <span className="hl-icon">🛡️</span>
-                            <span className="hl-text">3Y WARRANTY</span>
+                            <span>O en 12 cuotas de {formatearMoneda(infoProducto.precio / 12)}</span>
                         </div>
                     </div>
 
                     <div className="descripcion-short">
-                        <p>{infoProducto.descripcion || "Ingeniería de alta precisión diseñada para maximizar el rendimiento. Cada unidad es sometida a pruebas de fatiga extrema en nuestro laboratorio."}</p>
+                        <p>{infoProducto.descripcion || "Una bicicleta diseñada sin compromisos. Rigidez lateral absoluta, absorción vertical y una geometría agresiva lista para la competición más exigente."}</p>
                     </div>
 
                     <div className="compra-actions-expanded">
-                        <div className="selector-cantidad">
-                            <button onClick={decrementar}>−</button>
-                            <span>{cantidad}</span>
-                            <button onClick={incrementar}>+</button>
+                        <div style={{ display: 'flex', gap: '15px', width: '100%' }}>
+                            <div className="selector-cantidad">
+                                <button onClick={decrementar}>−</button>
+                                <span>{cantidad}</span>
+                                <button onClick={incrementar}>+</button>
+                            </div>
+                            <button className="btn-add-cart-large" onClick={handleAddToCart}>
+                                AÑADIR A LA CESTA
+                            </button>
                         </div>
-                        <button className="btn-add-cart-large" onClick={handleAddToCart}>
-                            AÑADIR AL CARRITO
-                        </button>
                     </div>
 
                     <div className="product-tabs-container">
@@ -159,16 +139,16 @@ function DetalleProducto() {
                                 <table className="specs-table">
                                     <tbody>
                                         <tr><td>CATEGORÍA</td><td>{infoProducto.categoria || "Racing Series"}</td></tr>
-                                        <tr><td>MATERIAL</td><td>Fibra de Carbono T1100 Unidireccional</td></tr>
-                                        <tr><td>PAR DE APRIETE</td><td>5 Nm Máx.</td></tr>
-                                        <tr><td>CERTIFICACIÓN</td><td>ISO 4210-Racing</td></tr>
+                                        <tr><td>MATERIAL</td><td>Carbono T1100 UD</td></tr>
+                                        <tr><td>PESO</td><td>7.4 kg (M)</td></tr>
+                                        <tr><td>CERTIFICACIÓN</td><td>UCI Approved</td></tr>
                                     </tbody>
                                 </table>
                             )}
                             {activeTab === 'shipping' && (
                                 <div className="shipping-details">
-                                    <p><strong>LOGÍSTICA:</strong> Entrega en 24/48 horas vía DHL Express.</p>
-                                    <p><strong>RECOGIDA:</strong> Disponible en Synapses Lab Madrid.</p>
+                                    <p><strong>LOGÍSTICA:</strong> Envío especial seguro vía DHL Freight (24-48h).</p>
+                                    <p><strong>GARANTÍA:</strong> 5 años en cuadro, 2 años en pintura.</p>
                                 </div>
                             )}
                         </div>
