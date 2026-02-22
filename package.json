@@ -2,15 +2,13 @@
   "name": "synapses",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://DevRodrigoPdp.github.io/Synapses",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "test": "vitest",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
