@@ -1,9 +1,9 @@
 import { useState } from "react";
 import '../estilos/administracion.css'
-import ProductoBorrar from "../crud-producto/productoBorrar.js";
-import ProductoConsultar from "../crud-producto/productoConsultar.jsx";
-import ProductoEditar from "../crud-producto/productoEditar.jsx";
-import ProductoCrear from "../crud-producto/productoCrear.jsx";
+import ProductoBorrar from "../crud-producto/ProductoBorrar.js";
+import ProductoConsultar from "../crud-producto/ProductoConsultar.jsx";
+import ProductoEditar from "../crud-producto/ProductoEditar.jsx";
+import ProductoCrear from "../crud-producto/ProductoCrear.jsx";
 import Modal from "../componentes/Modal.jsx";
 
 // 1. IMPORTAMOS EL CONTEXTO

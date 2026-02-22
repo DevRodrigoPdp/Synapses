@@ -6,8 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* Añadimos el basename para que coincida con tu repositorio */}
-    <BrowserRouter basename="/Synapses">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </StrictMode>
