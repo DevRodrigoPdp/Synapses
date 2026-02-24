@@ -19,16 +19,18 @@ function Cuerpo() {
     // Extraer categorías únicas disponibles
     const categoriasUnicas = useMemo(() => {
         if (!productos || productos.length === 0) return ['Todas'];
-        const cats = new Set(productos.filter(p => !p.ocasion && p.categoria).map(p => p.categoria));
+        // Eliminamos el filtro de !p.ocasion para que salgan todos, y limpiamos espacios
+        const cats = new Set(productos.filter(p => p.categoria).map(p => p.categoria.trim()));
         return ['Todas', ...Array.from(cats)];
     }, [productos]);
 
     // Filtrar los productos según la selección
     const productosParaMostrar = useMemo(() => {
         if (!productos) return [];
-        let filtrados = productos.filter(item => item.ocasion === false);
+        // Mostramos TODOS los productos (con o sin descuento)
+        let filtrados = productos;
         if (categoriaActiva !== 'Todas') {
-            filtrados = filtrados.filter(item => item.categoria === categoriaActiva);
+            filtrados = filtrados.filter(item => item.categoria && item.categoria.trim() === categoriaActiva);
         }
         return filtrados;
     }, [productos, categoriaActiva]);
@@ -72,7 +74,7 @@ function Cuerpo() {
                                                     <div className="new-badge" style={{ background: '#333', color: '#999' }}>AGOTADO</div>
                                                 ) : (
                                                     <>
-                                                        {item.porcentaje > 0 && <div className="new-badge" style={{ background: '#ef4444' }}>-{item.porcentaje}%</div>}
+                                                        {item.porcentaje > 0 && <div className="new-badge" style={{ background: '#ef4444', color: '#fff' }}>-{item.porcentaje}%</div>}
                                                         {item.porcentaje === 0 && <div className="new-badge">NUEVO</div>}
                                                     </>
                                                 )}

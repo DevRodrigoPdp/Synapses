@@ -44,7 +44,7 @@ function DetalleProducto() {
     // Productos relacionados: misma categoría, excluyendo el actual
     const productosRelacionados = productos
         .filter(p => String(p.id) !== String(id))
-        .filter(p => infoProducto?.categoria ? p.categoria === infoProducto.categoria : true)
+        .filter(p => infoProducto?.categoria && p.categoria ? p.categoria.trim() === infoProducto.categoria.trim() : true)
         .slice(0, 4);
 
     const incrementar = () => setCantidad(prev => prev + 1);
@@ -251,7 +251,7 @@ function DetalleProducto() {
                                     <div className="related-product-img">
                                         <img src={item.imagen} alt={item.nombre} />
                                         {item.porcentaje > 0 && (
-                                            <span className="related-badge-discount">-{item.porcentaje}%</span>
+                                            <span className="related-badge-discount" style={{ color: '#fff' }}>-{item.porcentaje}%</span>
                                         )}
                                     </div>
                                     <div className="related-product-info">

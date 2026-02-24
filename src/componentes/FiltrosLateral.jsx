@@ -8,16 +8,12 @@ const FiltrosLateral = ({ categorias, categoriaActiva, setCategoriaActiva }) => 
             <ul className="filtros-lista">
                 {categorias.map((cat, index) => (
                     <li key={index} className="filtro-item">
-                        <label className="filtro-label">
-                            <input 
-                                type="radio" 
-                                name="filtro-categoria"
-                                checked={categoriaActiva === cat}
-                                onChange={() => setCategoriaActiva(cat)}
-                                className="filtro-radio"
-                            />
+                        <button
+                            className={`filtro-btn ${categoriaActiva === cat ? 'active' : ''}`}
+                            onClick={() => setCategoriaActiva(cat)}
+                        >
                             <span className="filtro-texto">{cat}</span>
-                        </label>
+                        </button>
                     </li>
                 ))}
             </ul>
