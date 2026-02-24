@@ -67,7 +67,7 @@ function Cuerpo() {
                     <h3 className='h3-Productos'>NUESTROS PRODUCTOS</h3>
 
                     {/* SEXTA FASE: Layout Flex para Barra Lateral + Grid */}
-                    <div style={{ display: 'flex', width: '100%', maxWidth: '1800px', margin: '0 auto', flexDirection: 'row' }}>
+                    <div className="catalogo-container">
 
                         {/* BARRA LATERAL IZQUIERDA (Filtros) */}
                         <FiltrosLateral

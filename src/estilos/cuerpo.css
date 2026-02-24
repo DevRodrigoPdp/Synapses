@@ -452,3 +452,18 @@ html.dark .product-price {
         font-size: 16px;
     }
 }
+
+/* --- CONTENEDOR CATÁLOGO RESPONSIVE --- */
+.catalogo-container {
+    display: flex;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    flex-direction: row;
+}
+
+@media (max-width: 900px) {
+    .catalogo-container {
+        flex-direction: column;
+    }
+}
