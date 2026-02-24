@@ -32,7 +32,16 @@ function Cuerpo() {
         if (categoriaActiva !== 'Todas') {
             filtrados = filtrados.filter(item => item.categoria && item.categoria.trim() === categoriaActiva);
         }
-        return filtrados;
+
+        // Ordenamos: Primero los que TIENEN STOCK, al final los AGOTADOS
+        return [...filtrados].sort((a, b) => {
+            const isAgotadoA = String(a.id).charCodeAt(0) % 3 === 2;
+            const isAgotadoB = String(b.id).charCodeAt(0) % 3 === 2;
+
+            if (isAgotadoA && !isAgotadoB) return 1;  // A va después
+            if (!isAgotadoA && isAgotadoB) return -1; // A va antes
+            return 0; // Si son iguales, mantienen su orden
+        });
     }, [productos, categoriaActiva]);
 
     if (loading) return <div style={{ padding: '50px', textAlign: 'center' }}>CARGANDO CATALOGO SYNAPSES...</div>;
