@@ -25,7 +25,13 @@ function Rebajas() {
     // Extraer categorías únicas disponibles en rebajas
     const categoriasUnicas = useMemo(() => {
         if (!rebajas || rebajas.length === 0) return ['Todas'];
-        const cats = new Set(rebajas.filter(p => p.categoria).map(p => p.categoria.trim()));
+
+        const cats = new Set();
+        rebajas.forEach(p => {
+            if (p.categoria && p.categoria.trim() !== "") cats.add(p.categoria.trim());
+            if (p.subcategoria && p.subcategoria.trim() !== "") cats.add(p.subcategoria.trim());
+        });
+
         return ['Todas', ...Array.from(cats)];
     }, [rebajas]);
 
@@ -34,7 +40,11 @@ function Rebajas() {
         if (!rebajas) return [];
         let filtrados = rebajas;
         if (categoriaActiva !== 'Todas') {
-            filtrados = filtrados.filter(item => item.categoria && item.categoria.trim() === categoriaActiva);
+            filtrados = filtrados.filter(item => {
+                const catMatch = item.categoria && item.categoria.trim() === categoriaActiva;
+                const subMatch = item.subcategoria && item.subcategoria.trim() === categoriaActiva;
+                return catMatch || subMatch;
+            });
         }
 
         // Ordenamos: Primero los que TIENEN STOCK, al final los AGOTADOS

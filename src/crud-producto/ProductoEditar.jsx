@@ -17,6 +17,7 @@ const ProductoEditar = ({ productos, onClose }) => {
         precio: producto.precio || '',
         imagen: producto.imagen || '',
         categoria: producto.categoria || '',
+        subcategoria: producto.subcategoria || '',
         descripcion: producto.descripcion || '',
         porcentaje: producto.porcentaje || 0
     });
@@ -38,6 +39,11 @@ const ProductoEditar = ({ productos, onClose }) => {
         if (!nombre.trim()) newErrors.nombre = "El nombre es obligatorio.";
         if (!imagen.trim()) newErrors.imagen = "La URL de la imagen es obligatoria.";
         if (!categoria.trim()) newErrors.categoria = "La categoría es obligatoria.";
+
+        if (!form.subcategoria.trim() && form.categoria === 'Bicicleta') {
+            newErrors.subcategoria = "La disciplina es obligatoria para bicicletas.";
+        }
+
         if (!descripcion.trim()) newErrors.descripcion = "La descripción es obligatoria.";
 
         const precioNumerico = parseFloat(precio);
@@ -72,6 +78,7 @@ const ProductoEditar = ({ productos, onClose }) => {
             precio: precioFinal,
             imagen: form.imagen.trim(),
             categoria: form.categoria.trim(),
+            subcategoria: form.subcategoria.trim(), // <- NUEVO CAMPO
             descripcion: form.descripcion.trim(),
             ocasion: parseFloat(form.porcentaje) > 0,
             porcentaje: parseFloat(form.porcentaje)
@@ -128,17 +135,67 @@ const ProductoEditar = ({ productos, onClose }) => {
                         {errors.nombre && <span style={errorStyle}>{errors.nombre}</span>}
                     </div>
 
-                    {/* CATEGORÍA */}
+                    {/* CATEGORÍA PRINCIPAL */}
                     <div>
-                        <label>Categoría</label>
-                        <input
-                            type="text"
+                        <label>Categoría General</label>
+                        <select
                             name="categoria"
                             value={form.categoria}
                             onChange={handleChange}
                             style={errors.categoria ? { borderColor: 'red' } : {}}
-                        />
+                            className="select-form"
+                        >
+                            <option value="">Selecciona...</option>
+                            <option value="Bicicleta">Bicicletas</option>
+                            <option value="Equipamiento">Equipamiento</option>
+                            <option value="Componentes">Componentes</option>
+                        </select>
                         {errors.categoria && <span style={errorStyle}>{errors.categoria}</span>}
+                    </div>
+
+                    {/* SUBCATEGORÍA / TIPO */}
+                    <div>
+                        <label>Disciplina / Subcategoría</label>
+                        <select
+                            name="subcategoria"
+                            value={form.subcategoria}
+                            onChange={handleChange}
+                            style={errors.subcategoria ? { borderColor: 'red' } : {}}
+                            className="select-form"
+                            disabled={!form.categoria} // Deshabilitar si no hay categoría seleccionada
+                        >
+                            <option value="">
+                                {!form.categoria ? 'Selecciona primero una categoría...' : 'Selecciona el tipo exacto...'}
+                            </option>
+
+                            {form.categoria === 'Bicicleta' && (
+                                <optgroup label="Bicicletas">
+                                    <option value="Bicicleta de Montaña">Bicicleta de Montaña (MTB)</option>
+                                    <option value="E-MTB">E-MTB (Eléctrica)</option>
+                                    <option value="Bicicleta de Carretera">Bicicleta de Carretera</option>
+                                    <option value="Gravel">Gravel</option>
+                                    <option value="Enduro">Enduro / Descenso</option>
+                                    <option value="Urbana">Urbana / Fixie</option>
+                                </optgroup>
+                            )}
+
+                            {form.categoria === 'Equipamiento' && (
+                                <optgroup label="Equipamiento Base">
+                                    <option value="Cascos">Cascos</option>
+                                    <option value="Guantes">Guantes</option>
+                                    <option value="Protecciones">Protecciones</option>
+                                    <option value="Gafas">Gafas</option>
+                                </optgroup>
+                            )}
+
+                            {form.categoria === 'Componentes' && (
+                                <optgroup label="Componentes">
+                                    <option value="Cubiertas">Cubiertas</option>
+                                    <option value="Accesorios">Accesorios Generales</option>
+                                </optgroup>
+                            )}
+                        </select>
+                        {errors.subcategoria && <span style={errorStyle}>{errors.subcategoria}</span>}
                     </div>
 
                     {/* PRECIO */}

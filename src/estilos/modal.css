@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 9999;
     backdrop-filter: blur(5px);
 
     /* Animación de entrada */
@@ -331,4 +331,157 @@
     border-color: #fff;
     color: #fff;
     background-color: #333;
+}
+
+/* ========================================= */
+/* VISTA DE CONSULTA (MODAL "VER")           */
+/* ========================================= */
+.consultar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.consultar-header-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--border-color, #eaeaea);
+    padding-bottom: 20px;
+}
+
+.consultar-header-view h2 {
+    margin: 5px 0 0 0 !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.consultar-id {
+    font-family: var(--font-tech, monospace);
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.consultar-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.view-badge {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.view-badge.category {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.view-badge.discount {
+    background-color: #ef4444;
+    color: #fff;
+}
+
+.consultar-body.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.consultar-image-wrapper {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.consultar-img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+.consultar-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.detail-group label {
+    margin-bottom: 5px;
+    color: #888;
+}
+
+.detail-group p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.price-group {
+    background: var(--input-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.consultar-price {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.price-normal,
+.price-new {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text-color);
+}
+
+.price-new {
+    color: #ef4444;
+}
+
+.price-old {
+    font-size: 1.1rem;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.consultar-desc-text {
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.9;
+    padding-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .consultar-body.grid-2-col {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .consultar-header-view {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .consultar-badges {
+        justify-content: flex-start;
+    }
 }

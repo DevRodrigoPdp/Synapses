@@ -34,9 +34,76 @@ html.dark .filtros-titulo {
     gap: 15px;
 }
 
+/* Nuevos Agrupadores */
+.filtro-grupo {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filtro-grupo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.filtro-grupo-header:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+html.dark .filtro-grupo-header:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.filtro-grupo-titulo {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0;
+}
+
+html.dark .filtro-grupo-titulo {
+    color: #666;
+}
+
+.filtro-chevron {
+    font-size: 10px;
+    color: #999;
+    transition: transform 0.3s ease;
+    transform: rotate(-90deg);
+    /* Cerrado por defecto visualmente, aunque el estado empiece abierto */
+}
+
+.filtro-chevron.open {
+    transform: rotate(0deg);
+    /* Abierto apunta hacia abajo */
+}
+
+html.dark .filtro-chevron {
+    color: #666;
+}
+
+.filtros-sublista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .filtro-item {
     font-family: 'Inter', sans-serif;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 .filtro-btn {

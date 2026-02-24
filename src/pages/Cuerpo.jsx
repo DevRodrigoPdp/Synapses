@@ -19,8 +19,13 @@ function Cuerpo() {
     // Extraer categorías únicas disponibles
     const categoriasUnicas = useMemo(() => {
         if (!productos || productos.length === 0) return ['Todas'];
-        // Eliminamos el filtro de !p.ocasion para que salgan todos, y limpiamos espacios
-        const cats = new Set(productos.filter(p => p.categoria).map(p => p.categoria.trim()));
+
+        const cats = new Set();
+        productos.forEach(p => {
+            if (p.categoria && p.categoria.trim() !== "") cats.add(p.categoria.trim());
+            if (p.subcategoria && p.subcategoria.trim() !== "") cats.add(p.subcategoria.trim());
+        });
+
         return ['Todas', ...Array.from(cats)];
     }, [productos]);
 
@@ -30,7 +35,11 @@ function Cuerpo() {
         // Mostramos TODOS los productos (con o sin descuento)
         let filtrados = productos;
         if (categoriaActiva !== 'Todas') {
-            filtrados = filtrados.filter(item => item.categoria && item.categoria.trim() === categoriaActiva);
+            filtrados = filtrados.filter(item => {
+                const catMatch = item.categoria && item.categoria.trim() === categoriaActiva;
+                const subMatch = item.subcategoria && item.subcategoria.trim() === categoriaActiva;
+                return catMatch || subMatch;
+            });
         }
 
         // Ordenamos: Primero los que TIENEN STOCK, al final los AGOTADOS
