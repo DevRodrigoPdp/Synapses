@@ -10,7 +10,8 @@ html {
 .contenido-pagina {
     background: var(--bg-color);
     min-height: 100vh;
-    padding: 100px 4%;
+    padding: 40px 4% 100px 4%;
+    /* Reducido de 100px arriba a 40px para acercarlo a la portada */
     display: flex;
     justify-content: center;
     flex-direction: column;
