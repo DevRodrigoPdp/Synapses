@@ -1,0 +1,198 @@
+/* =========================================
+   SEARCH.CSS - SYNAPSES LAB
+   ========================================= */
+
+.search-container {
+    position: relative;
+    width: 200px;
+    margin: 0 5px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 0 10px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: background-color 0.3s ease;
+}
+
+.search-input-wrapper:hover {
+    background-color: rgba(125, 125, 125, 0.06);
+}
+
+.search-input-wrapper:focus-within {
+    background-color: rgba(125, 125, 125, 0.06);
+    border-color: transparent;
+}
+
+[data-theme='dark'] .search-input-wrapper:focus-within {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: transparent;
+}
+
+.search-icon {
+    color: var(--text-muted, #999);
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 7px 8px;
+    font-size: 0.8rem;
+    color: var(--text-color, #1a1a1a);
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+}
+
+.search-input:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.search-input::placeholder {
+    color: var(--text-muted, #aaa);
+    font-size: 0.8rem;
+}
+
+.search-clear {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-muted, #666);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-clear:hover {
+    color: var(--danger-color, #ef4444);
+}
+
+/* DESPLEGABLE DE RESULTADOS */
+.search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+    min-width: 350px;
+    background-color: var(--bg-solid, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    animation: slideDown 0.2s ease-out;
+}
+
+[data-theme='dark'] .search-results-dropdown {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.search-results-header {
+    padding: 10px 15px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-muted, #666);
+    background-color: var(--bg-drawer, #f9fafb);
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.search-results-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    transition: background-color 0.2s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: var(--bg-drawer, #f9fafb);
+}
+
+.search-item-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    background-color: #f3f4f6;
+}
+
+.search-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.search-item-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color, #1a1a1a);
+    line-height: 1.2;
+}
+
+.search-item-price {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--accent-color, #2563eb);
+}
+
+.search-no-results {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted, #666);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1280px) {
+    .search-container {
+        width: 100%;
+        margin: 0;
+        margin-top: 15px;
+    }
+
+    .search-results-dropdown {
+        min-width: 100%;
+    }
+}

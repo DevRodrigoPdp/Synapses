@@ -33,31 +33,31 @@ function Cuerpo() {
         return filtrados;
     }, [productos, categoriaActiva]);
 
-    if (loading) return <div style={{padding: '50px', textAlign: 'center'}}>CARGANDO CATALOGO SYNAPSES...</div>;
+    if (loading) return <div style={{ padding: '50px', textAlign: 'center' }}>CARGANDO CATALOGO SYNAPSES...</div>;
 
     return (
         <>
             <VelocityBar />
-            <Portada /> 
-           
+            <Portada />
+
             <div className="contenido-pagina">
                 <div className="seccion-productos" id="productos">
 
                     <h3 className='h3-Productos'>NUESTROS PRODUCTOS</h3>
 
                     {/* SEXTA FASE: Layout Flex para Barra Lateral + Grid */}
-                    <div style={{ display: 'flex', width: '100%', maxWidth: '1800px', margin: '0 auto', flexDirection: 'row', flexWrap: 'wrap' }}>
-                        
+                    <div style={{ display: 'flex', width: '100%', maxWidth: '1800px', margin: '0 auto', flexDirection: 'row' }}>
+
                         {/* BARRA LATERAL IZQUIERDA (Filtros) */}
-                        <FiltrosLateral 
-                            categorias={categoriasUnicas} 
-                            categoriaActiva={categoriaActiva} 
-                            setCategoriaActiva={setCategoriaActiva} 
+                        <FiltrosLateral
+                            categorias={categoriasUnicas}
+                            categoriaActiva={categoriaActiva}
+                            setCategoriaActiva={setCategoriaActiva}
                         />
-                        
+
                         {/* CONTENEDOR DERECHO (Grid Productos) */}
                         <div style={{ flex: 1, minWidth: '300px' }}>
-                            
+
                             {/* LISTADO DE PRODUCTOS UNIFICADO */}
                             <div className="product-list" style={{ maxWidth: '100%', margin: 0 }}>
                                 {productosParaMostrar.map((item) => (

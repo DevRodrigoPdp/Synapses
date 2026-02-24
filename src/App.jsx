@@ -21,45 +21,47 @@ const Perfil = lazy(() => import('./pages/Perfil')); // Importado correctamente
 const UpdatePassword = lazy(() => import('./pages/UpdatePassword'));
 const Pagina404 = lazy(() => import('./pages/Pagina404'));
 
-const Cuerpo = lazy(() => import('./pages/Cuerpo')); 
+const Cuerpo = lazy(() => import('./pages/Cuerpo'));
 const Newsletter = lazy(() => import('./componentes/Newsletter'));
+const Checkout = lazy(() => import('./pages/Checkout'));
 
 function App() {
   return (
     <div className="app-container">
       <AppProviders>
-        
+
         <Menu />
 
-            <Suspense fallback={<div style={{padding: '50px', textAlign: 'center'}}>Cargando Synapses...</div>}>
-              <Routes>
-                
-                {/* RUTA DE INICIO */}
-                <Route path="/" element={
-                  <>
-                    {/* CORRECCIÓN: Faltaba añadir la Portada aquí */}
-                    <Cuerpo />
-                    <Newsletter />
-                  </>
-                } />
+        <Suspense fallback={<div style={{ padding: '50px', textAlign: 'center' }}>Cargando Synapses...</div>}>
+          <Routes>
 
-                <Route path="/rebajas" element={<Rebajas />} />
-                <Route path="/autor" element={<Autor />} />
-                <Route path="/detalle/:id" element={<DetalleProducto />} />
-                <Route path="/detalle-carrito" element={<DetalleCarrito />} />
-                <Route path="/iniciar_sesion" element={<Login />} />
-                <Route path="/update-password" element={<UpdatePassword />} />
+            {/* RUTA DE INICIO */}
+            <Route path="/" element={
+              <>
+                {/* CORRECCIÓN: Faltaba añadir la Portada aquí */}
+                <Cuerpo />
+                <Newsletter />
+              </>
+            } />
 
-                {/* RUTAS PROTEGIDAS (Solo usuarios logueados) */}
-                {/* Aquí es donde redirigirá el botón de "Tramitar Pedido" si el usuario está logueado */}
-                <Route element={<ProtectedRoute />}>
-                    <Route path="/administracion" element={<Administracion />} />
-                    <Route path="/perfil" element={<Perfil />} />
-                </Route>
+            <Route path="/rebajas" element={<Rebajas />} />
+            <Route path="/autor" element={<Autor />} />
+            <Route path="/detalle/:id" element={<DetalleProducto />} />
+            <Route path="/detalle-carrito" element={<DetalleCarrito />} />
+            <Route path="/iniciar_sesion" element={<Login />} />
+            <Route path="/update-password" element={<UpdatePassword />} />
 
-                <Route path="*" element={<Pagina404 />} />
-              </Routes>
-            </Suspense>
+            {/* RUTAS PROTEGIDAS (Solo usuarios logueados) */}
+            {/* Aquí es donde redirigirá el botón de "Tramitar Pedido" si el usuario está logueado */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/administracion" element={<Administracion />} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Route>
+
+            <Route path="*" element={<Pagina404 />} />
+          </Routes>
+        </Suspense>
 
         <Footer />
 

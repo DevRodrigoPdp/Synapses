@@ -15,15 +15,15 @@ const DetalleCarrito = () => {
   // 2. EXTRAEMOS TODO DEL CONTEXTO
   const { carrito, total, agregar, disminuir, vaciar, setTotal, setProductos: setCarritoState } = useCarrito();
   const { user } = useAuth(); // EXTRAEMOS EL USUARIO PARA VERIFICAR SI ESTÁ LOGUEADO
-  
+
   // Mapeamos 'carrito' a 'productos' para no romper tu código de abajo
-  const productos = carrito; 
+  const productos = carrito;
   // Nota: 'setProductos' y 'setTotal' del contexto sirven para actualizar el estado global
 
   const lista = Array.isArray(productos) ? productos : [];
   const cantidadTotal = lista.reduce((acumulador, item) => acumulador + (item.cantidad || 1), 0);
 
-  
+
 
   const handlePurchase = () => {
     if (!user) {
@@ -31,27 +31,8 @@ const DetalleCarrito = () => {
       navigate('/iniciar_sesion');
       return;
     }
-
-    const nuevoPedido = {
-      id: `SYN-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000)}`,
-      fecha: new Date().toLocaleDateString('es-ES') + ' ' + new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'}),
-      estado: 'EN PROCESO',
-      total: Number(total).toLocaleString('es-ES') + ' €',
-      items: productos.map(p => ({
-          nombre: p.nombre,
-          cantidad: p.cantidad || 1
-      }))
-    };
-
-    const historialPrevio = JSON.parse(localStorage.getItem('historial_synapses') || '[]');
-    const nuevoHistorial = [nuevoPedido, ...historialPrevio];
-    localStorage.setItem('historial_synapses', JSON.stringify(nuevoHistorial));
-
-    // VACIAR EL CARRITO (esto hará que desaparezcan el badge y el precio del menú)
-    vaciar(); 
-    
-    // Redirigir al perfil
-    navigate('/perfil');
+    // Redirigir al proceso de checkout por pasos
+    navigate('/checkout');
   };
 
   if (lista.length === 0) {
@@ -72,31 +53,31 @@ const DetalleCarrito = () => {
   const productosRebajados = lista.filter(p => p.ocasion === true);
   const productosGenerales = lista.filter(p => !p.ocasion);
 
-  const renderItem = (item, index) => { 
+  const renderItem = (item, index) => {
     const uniqueKey = item.id ? item.id : `item-${index}`;
     return (
       <div key={uniqueKey} className="carrito-item-row">
         <div className="item-img-wrapper">
-           <img 
-              src={item.imagen} 
-              alt={item.nombre} 
-              onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Image'; }} 
-           />
+          <img
+            src={item.imagen}
+            alt={item.nombre}
+            onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Image'; }}
+          />
         </div>
         <div className="item-info-wrapper">
           <div className="item-texts">
-              <span className="item-name">{item.nombre}</span>
-              <span className="item-cat">{item.categoria || 'Bicicleta'}</span>
+            <span className="item-name">{item.nombre}</span>
+            <span className="item-cat">{item.categoria || 'Bicicleta'}</span>
           </div>
           <div className="item-actions">
-              <div className="controles-minimal">
-                  <button onClick={() => disminuir(item)}>-</button>
-                  <span>{item.cantidad || 1}</span>
-                  <button onClick={() => agregar(item)}>+</button>
-              </div>
-              <span className="item-price">
-                  {(Number(item.precio) * (item.cantidad || 1)).toLocaleString('de-DE')} €
-              </span>
+            <div className="controles-minimal">
+              <button onClick={() => disminuir(item)}>-</button>
+              <span>{item.cantidad || 1}</span>
+              <button onClick={() => agregar(item)}>+</button>
+            </div>
+            <span className="item-price">
+              {(Number(item.precio) * (item.cantidad || 1)).toLocaleString('de-DE')} €
+            </span>
           </div>
         </div>
       </div>
@@ -153,20 +134,20 @@ const DetalleCarrito = () => {
             </div>
 
             <div className="acciones-verticales">
-              <button 
-                className="btn-negro-solido" 
+              <button
+                className="btn-negro-solido"
                 onClick={handlePurchase}
                 style={{ marginBottom: '15px', border: '1px solid #000', cursor: 'pointer' }}
-            >
+              >
                 PAGAR
-            </button>
+              </button>
 
-              <button 
-                className="btn-negro-solido" 
+              <button
+                className="btn-negro-solido"
                 onClick={() => setMostrarPDF(true)}
                 style={{ opacity: 0.8, fontSize: '0.9rem', cursor: 'pointer' }}
               >
-                 PREVISUALIZAR INFORME PDF
+                PREVISUALIZAR INFORME PDF
               </button>
 
               <button className="btn-outline-rojo" onClick={vaciar}>
@@ -188,21 +169,21 @@ const DetalleCarrito = () => {
               <span className="pdf-modal-title">SYNAPSES // VISTA PREVIA</span>
               <button className="pdf-close-btn" onClick={() => setMostrarPDF(false)}>✕</button>
             </div>
-            
+
             <div className="pdf-viewer-container">
               <PDFViewer width="100%" height="100%" showToolbar={false}>
-                 <CarritoPDF productosGenerales={productosGenerales} productosRebajados={productosRebajados} total={total} />
+                <CarritoPDF productosGenerales={productosGenerales} productosRebajados={productosRebajados} total={total} />
               </PDFViewer>
             </div>
 
             <div className="pdf-modal-footer">
-               <PDFDownloadLink
-                  document={<CarritoPDF productosGenerales={productosGenerales} productosRebajados={productosRebajados} total={total} />}
-                  fileName="resumen_synapses.pdf"
-                  className="btn-download-final"
-               >
-                  {({ loading }) => loading ? 'GENERANDO...' : 'DESCARGAR ARCHIVO'}
-               </PDFDownloadLink>
+              <PDFDownloadLink
+                document={<CarritoPDF productosGenerales={productosGenerales} productosRebajados={productosRebajados} total={total} />}
+                fileName="resumen_synapses.pdf"
+                className="btn-download-final"
+              >
+                {({ loading }) => loading ? 'GENERANDO...' : 'DESCARGAR ARCHIVO'}
+              </PDFDownloadLink>
             </div>
           </div>
         </div>

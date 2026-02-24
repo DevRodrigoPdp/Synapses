@@ -6,17 +6,17 @@ import '../estilos/detalleProducto.css';
 import { useCarrito } from "../servicios/context/CarritoContext";
 import { useProductos } from "../servicios/context/ProductosContext";
 
-function DetalleProducto() { 
+function DetalleProducto() {
     // YA NO RECIBIMOS PROPS. Usamos los hooks.
     const { id } = useParams();
-    
+
     // Traemos la lista completa y la función de cargar
     const { productos, loading: loadingGlobal } = useProductos();
-    
+
     // Traemos la función de añadir al carrito
     const { agregar } = useCarrito();
 
-    const [infoProducto, setInfoProducto] = useState(null); 
+    const [infoProducto, setInfoProducto] = useState(null);
     const [cantidad, setCantidad] = useState(1);
     const [activeTab, setActiveTab] = useState('specs');
 
@@ -35,11 +35,17 @@ function DetalleProducto() {
 
     const formatearMoneda = (cantidad) => {
         if (!cantidad) return "0 €";
-        return Number(cantidad).toLocaleString('de-DE', { 
-            minimumFractionDigits: 0, 
-            maximumFractionDigits: 2 
+        return Number(cantidad).toLocaleString('de-DE', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
         }) + " €";
     };
+
+    // Productos relacionados: misma categoría, excluyendo el actual
+    const productosRelacionados = productos
+        .filter(p => String(p.id) !== String(id))
+        .filter(p => infoProducto?.categoria ? p.categoria === infoProducto.categoria : true)
+        .slice(0, 4);
 
     const incrementar = () => setCantidad(prev => prev + 1);
     const decrementar = () => setCantidad(prev => (prev > 1 ? prev - 1 : 1));
@@ -48,7 +54,7 @@ function DetalleProducto() {
     const handleAddToCart = () => {
         if (!infoProducto) return;
 
-        for(let i = 0; i < cantidad; i++) {
+        for (let i = 0; i < cantidad; i++) {
             // Llamamos directamente a la función del contexto
             agregar(infoProducto);
         }
@@ -65,9 +71,9 @@ function DetalleProducto() {
 
     return (
         <div className="detalle-page">
-            
+
             {/* BARRA DE PROGRESO FIJA */}
-          
+
             {/* BREADCRUMBS */}
             <div className="breadcrumbs wide-container">
                 <Link to="/">INICIO</Link>
@@ -79,13 +85,13 @@ function DetalleProducto() {
 
             {/* SECCIÓN PRINCIPAL (HERO) */}
             <div className="detalle-container wide-layout">
-                
+
                 {/* COLUMNA IZQUIERDA: IMAGEN GIGANTE */}
                 <div className="col-imagen-expanded">
                     <div className="imagen-principal-wrapper">
-                        <img 
-                            src={infoProducto.imagen} 
-                            alt={infoProducto.nombre} 
+                        <img
+                            src={infoProducto.imagen}
+                            alt={infoProducto.nombre}
                             className="img-main"
                         />
                     </div>
@@ -164,7 +170,7 @@ function DetalleProducto() {
                         <h4 className="subtitle-tech">R&D DEPARTMENT</h4>
                         <h2 className="title-tech">LAMINADO DE ALTA DENSIDAD</h2>
                         <p>
-                            Utilizamos un proceso de compactación al vacío que elimina cualquier micro-burbuja en la resina, logrando una estructura 
+                            Utilizamos un proceso de compactación al vacío que elimina cualquier micro-burbuja en la resina, logrando una estructura
                             un 15% más rígida que los estándares de la industria sin añadir un solo gramo de peso.
                         </p>
                         <ul className="tech-list">
@@ -177,9 +183,9 @@ function DetalleProducto() {
                         <div className="tech-graphic">
                             <span className="graphic-label">PERFORMANCE METRICS</span>
                             <div className="bar-chart">
-                                <div className="bar" style={{height: '70%'}}><span>STANDARD</span></div>
-                                <div className="bar active" style={{height: '100%'}}><span>SYNAPSES</span></div>
-                                <div className="bar" style={{height: '60%'}}><span>PREV GEN</span></div>
+                                <div className="bar" style={{ height: '70%' }}><span>STANDARD</span></div>
+                                <div className="bar active" style={{ height: '100%' }}><span>SYNAPSES</span></div>
+                                <div className="bar" style={{ height: '60%' }}><span>PREV GEN</span></div>
                             </div>
                         </div>
                     </div>
@@ -210,7 +216,6 @@ function DetalleProducto() {
 
             {/* SECCIÓN 4: FAQ TÉCNICO */}
             <div className="full-width-section white-bg">
-                {/* ELIMINADO: wide-container - ahora usa full-width-inner con faq-container */}
                 <div className="full-width-inner faq-container">
                     <h2 className="section-title-left">TECHNICAL QUESTIONS</h2>
                     <div className="faq-item">
@@ -227,8 +232,41 @@ function DetalleProducto() {
                     </div>
                 </div>
             </div>
+
+            {/* SECCIÓN 5: PRODUCTOS RELACIONADOS */}
+            {productosRelacionados.length > 0 && (
+                <div className="full-width-section light-bg">
+                    <div className="full-width-inner">
+                        <h2 className="section-title-center">TAMBIÉN TE PUEDE INTERESAR</h2>
+                        <div className="related-products-grid">
+                            {productosRelacionados.map((item) => (
+                                <Link to={`/detalle/${item.id}`} className="related-product-card" key={item.id}>
+                                    <div className="related-product-img">
+                                        <img src={item.imagen} alt={item.nombre} />
+                                        {item.porcentaje > 0 && (
+                                            <span className="related-badge-discount">-{item.porcentaje}%</span>
+                                        )}
+                                    </div>
+                                    <div className="related-product-info">
+                                        <span className="related-product-brand">SYNAPSES</span>
+                                        <h4 className="related-product-name">{item.nombre}</h4>
+                                        <span className="related-product-price">{formatearMoneda(item.precio)}</span>
+                                    </div>
+                                    <button className="related-add-btn" onClick={(e) => {
+                                        e.preventDefault();
+                                        agregar(item);
+                                    }}>
+                                        AÑADIR
+                                    </button>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
 
 export default DetalleProducto;
+

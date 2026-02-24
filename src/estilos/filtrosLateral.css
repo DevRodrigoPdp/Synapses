@@ -7,6 +7,9 @@
     flex-shrink: 0;
     padding-right: 40px;
     margin-right: 20px;
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
 }
 
 .filtros-titulo {
@@ -17,7 +20,10 @@
     margin-bottom: 25px;
     color: #111;
 }
-html.dark .filtros-titulo { color: #fff; }
+
+html.dark .filtros-titulo {
+    color: #fff;
+}
 
 .filtros-lista {
     list-style: none;
@@ -33,7 +39,10 @@ html.dark .filtros-titulo { color: #fff; }
     font-size: 14px;
     color: #555;
 }
-html.dark .filtro-item { color: #aaa; }
+
+html.dark .filtro-item {
+    color: #aaa;
+}
 
 .filtro-label {
     display: flex;
@@ -41,12 +50,19 @@ html.dark .filtro-item { color: #aaa; }
     cursor: pointer;
     transition: color 0.2s ease;
 }
-.filtro-label:hover { color: #000; }
-html.dark .filtro-label:hover { color: #fff; }
+
+.filtro-label:hover {
+    color: #000;
+}
+
+html.dark .filtro-label:hover {
+    color: #fff;
+}
 
 .filtro-radio {
     margin-right: 12px;
-    accent-color: #dfcdad; /* Color beige premium */
+    accent-color: #dfcdad;
+    /* Color beige premium */
     transform: scale(1.1);
     cursor: pointer;
 }
@@ -56,23 +72,34 @@ html.dark .filtro-label:hover { color: #fff; }
     text-transform: capitalize;
 }
 
-input:checked + .filtro-texto {
+input:checked+.filtro-texto {
     font-weight: 800;
     color: #111;
 }
-html.dark input:checked + .filtro-texto { color: #fff; }
+
+html.dark input:checked+.filtro-texto {
+    color: #fff;
+}
 
 /* En pantallas de móvil y tablets, cambiamos a horizontal */
 @media (max-width: 900px) {
-    .filtros-lateral { 
-        width: 100%; 
-        border-right: none; 
-        padding-right: 0; 
-        margin-right: 0; 
-        border-bottom: 1px solid #e0e0e0; 
-        padding-bottom: 20px; 
-        margin-bottom: 30px; 
+    .filtros-lateral {
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
     }
-    html.dark .filtros-lateral { border-bottom-color: #333; }
-    .filtros-lista { flex-direction: row; flex-wrap: wrap; gap: 20px; }
+
+    html.dark .filtros-lateral {
+        border-bottom-color: #333;
+    }
+
+    .filtros-lista {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 }
