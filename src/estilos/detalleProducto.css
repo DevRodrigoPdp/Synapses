@@ -106,7 +106,8 @@ html.dark .breadcrumbs .current {
 }
 
 html.dark .imagen-principal-wrapper {
-    background-color: transparent;
+    background-color: #f8f8f8;
+    border-radius: 15px;
 }
 
 .img-main {
@@ -194,6 +195,10 @@ html.dark .titulo {
     letter-spacing: 1px;
 }
 
+html.dark .sku-badge {
+    color: #aaa;
+}
+
 .precio-block-large {
     margin-bottom: 40px;
 }
@@ -213,6 +218,10 @@ html.dark .precio {
     font-size: 0.8rem;
     margin-top: 8px;
     font-weight: 500;
+}
+
+html.dark .financiacion {
+    color: #aaa;
 }
 
 .descripcion-short p {
@@ -395,6 +404,10 @@ html.dark .specs-table td {
     width: 40%;
 }
 
+html.dark .specs-table td:first-child {
+    color: #ccc;
+}
+
 .shipping-details p {
     margin-bottom: 10px;
     font-size: 0.85rem;
@@ -509,6 +522,10 @@ html.dark .shipping-details p {
     letter-spacing: 2px;
 }
 
+html.dark .graphic-label {
+    color: #999;
+}
+
 .bar-chart {
     display: flex;
     justify-content: space-around;
@@ -536,6 +553,10 @@ html.dark .shipping-details p {
     font-size: 0.6rem;
     color: #666;
     font-weight: 700;
+}
+
+html.dark .bar span {
+    color: #aaa;
 }
 
 /* Reviews */
@@ -683,7 +704,7 @@ html.dark .faq-item p {
 }
 
 html.dark .related-product-img {
-    background: #1a1a1a;
+    background: #f8f8f8;
 }
 
 .related-product-img img {
@@ -759,6 +780,26 @@ html.dark .related-product-img {
     color: #000;
 }
 
+
+html.dark .related-product-card {
+    background: #f8f8f8;
+    border-color: #f8f8f8;
+}
+
+html.dark .related-product-name,
+html.dark .related-product-price {
+    color: #111;
+}
+
+html.dark .related-add-btn {
+    background: #111;
+    color: #fff;
+}
+
+html.dark .related-add-btn:hover {
+    background: #dfcdad;
+    color: #000;
+}
 
 /* =========================================
    6. RESPONSIVE (MÓVIL Y TABLET)
