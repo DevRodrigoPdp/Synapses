@@ -50,9 +50,10 @@ function DetalleProducto() {
     const incrementar = () => setCantidad(prev => prev + 1);
     const decrementar = () => setCantidad(prev => (prev > 1 ? prev - 1 : 1));
 
-    // SIMULACIÓN DE STOCK (Igual que en Administracion.jsx)
-    const randomStock = infoProducto ? String(infoProducto.id).charCodeAt(0) % 3 : 0;
-    const isOutOfStock = randomStock === 2;
+    // LÓGICA DE STOCK REAL
+    const stockActual = infoProducto && infoProducto.stock !== undefined && infoProducto.stock !== null ? Number(infoProducto.stock) : 10;
+    const isOutOfStock = stockActual <= 0;
+    const isLowStock = stockActual > 0 && stockActual < 10;
 
     // 4. NUEVA FUNCIÓN AÑADIR (Usando el Contexto)
     const handleAddToCart = () => {
@@ -107,8 +108,8 @@ function DetalleProducto() {
                         <h2 className="marca">SYNAPSES / BIKES</h2>
                         <h1 className="titulo">{infoProducto.nombre}</h1>
                         <div className="badges-row">
-                            <div className={`stock-badge ${isOutOfStock ? 'stock-low' : (randomStock === 1 ? 'stock-medium' : 'stock-high')}`}>
-                                {isOutOfStock ? 'AGOTADO' : (randomStock === 1 ? 'STOCK BAJO' : 'EN STOCK')}
+                            <div className={`stock-badge ${isOutOfStock ? 'stock-low' : (isLowStock ? 'stock-medium' : 'stock-high')}`}>
+                                {isOutOfStock ? 'AGOTADO' : (isLowStock ? 'POCO STOCK' : 'EN STOCK')}
                             </div>
                             <span className="sku-badge">REF: {infoProducto.id}XY</span>
                         </div>

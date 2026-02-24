@@ -93,12 +93,15 @@ function Administracion() {
                     <tbody>
                         {listaSegura.length > 0 ? (
                             listaSegura.map((producto) => {
-                                // Simulación de stock basado en el ID para demostración
-                                // Idealmente esto vendría del producto de la base de datos
-                                const randomStock = String(producto.id).charCodeAt(0) % 3;
+                                // Lógica real de stock según requerimiento del usuario
+                                const stockActual = producto.stock !== undefined && producto.stock !== null ? Number(producto.stock) : 10;
                                 let stockBadge = { class: 'stock-high', text: 'EN STOCK' };
-                                if (randomStock === 1) stockBadge = { class: 'stock-medium', text: 'BAJO' };
-                                if (randomStock === 2) stockBadge = { class: 'stock-low', text: 'AGOTADO' };
+
+                                if (stockActual <= 0) {
+                                    stockBadge = { class: 'stock-low', text: 'AGOTADO' };
+                                } else if (stockActual < 10) {
+                                    stockBadge = { class: 'stock-medium', text: 'POCO STOCK' };
+                                }
 
                                 return (
                                     <tr key={producto.id}>

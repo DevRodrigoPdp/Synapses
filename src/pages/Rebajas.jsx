@@ -49,8 +49,9 @@ function Rebajas() {
 
         // Ordenamos: Primero los que TIENEN STOCK, al final los AGOTADOS
         return [...filtrados].sort((a, b) => {
-            const isAgotadoA = String(a.id).charCodeAt(0) % 3 === 2;
-            const isAgotadoB = String(b.id).charCodeAt(0) % 3 === 2;
+            const getStock = (item) => item.stock !== undefined && item.stock !== null ? Number(item.stock) : 10;
+            const isAgotadoA = getStock(a) <= 0;
+            const isAgotadoB = getStock(b) <= 0;
 
             if (isAgotadoA && !isAgotadoB) return 1;  // A va después
             if (!isAgotadoA && isAgotadoB) return -1; // A va antes
@@ -83,9 +84,9 @@ function Rebajas() {
                             <div className="product-list" style={{ maxWidth: '100%', margin: 0 }}>
                                 {rebajasParaMostrar.length > 0 ? (
                                     rebajasParaMostrar.map((item) => {
-                                        // SIMULACIÓN DE STOCK
-                                        const randomStock = String(item.id).charCodeAt(0) % 3;
-                                        const isOutOfStock = randomStock === 2;
+                                        // LÓGICA DE STOCK REAL
+                                        const stockActual = item.stock !== undefined && item.stock !== null ? Number(item.stock) : 10;
+                                        const isOutOfStock = stockActual <= 0;
 
                                         return (
                                             <div className="product-card" key={item.id}>

@@ -16,7 +16,8 @@ const ProductoCrear = ({ onClose }) => {
         categoria: 'Bicicleta',
         subcategoria: '',
         descripcion: '',
-        porcentaje: 0
+        porcentaje: 0,
+        stock: 10
     });
 
     const [errors, setErrors] = useState({});
@@ -55,6 +56,11 @@ const ProductoCrear = ({ onClose }) => {
             newErrors.porcentaje = "El porcentaje debe estar entre 0 y 100.";
         }
 
+        const stockNum = parseInt(form.stock, 10);
+        if (isNaN(stockNum) || stockNum < 0) {
+            newErrors.stock = "El stock debe ser 0 o superior.";
+        }
+
         return newErrors;
     };
 
@@ -77,7 +83,8 @@ const ProductoCrear = ({ onClose }) => {
             subcategoria: form.subcategoria.trim(), // <- NUEVO CAMPO
             descripcion: form.descripcion.trim(),
             ocasion: parseFloat(form.porcentaje) > 0,
-            porcentaje: parseFloat(form.porcentaje)
+            porcentaje: parseFloat(form.porcentaje),
+            stock: parseInt(form.stock, 10)
         };
 
         try {
@@ -220,6 +227,21 @@ const ProductoCrear = ({ onClose }) => {
                             style={errors.porcentaje ? { borderColor: 'red' } : {}}
                         />
                         {errors.porcentaje && <span style={errorMsgStyle}>{errors.porcentaje}</span>}
+                    </div>
+
+                    {/* STOCK */}
+                    <div>
+                        <label>Unidades en Stock</label>
+                        <input
+                            type="number"
+                            name="stock"
+                            placeholder="Ej: 10"
+                            onChange={handleChange}
+                            value={form.stock}
+                            min="0"
+                            style={errors.stock ? { borderColor: 'red' } : {}}
+                        />
+                        {errors.stock && <span style={errorMsgStyle}>{errors.stock}</span>}
                     </div>
 
                     {/* IMAGEN */}
