@@ -6,6 +6,7 @@ import './App.css';
 import Menu from './componentes/Menu';
 import Footer from './componentes/Footer';
 import ProtectedRoute from './componentes/ProtectedRoute';
+import ScrollToTop from './componentes/ScrollToTop';
 
 import AppProviders from './servicios/AppProviders';
 
@@ -63,6 +64,7 @@ function App() {
           </Routes>
         </Suspense>
 
+        <ScrollToTop />
         <Footer />
 
       </AppProviders>
