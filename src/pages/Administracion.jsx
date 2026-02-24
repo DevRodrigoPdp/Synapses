@@ -71,38 +71,82 @@ function Administracion() {
 
     return (
         <div className="admin-container">
-            <h1 style={{ textAlign: 'center', fontFamily: 'Poppins', fontWeight: '900', fontSize: '2.5rem', marginBottom: '40px', color: 'var(--text-color)' }}>
-                PANEL DE CONTROL
-            </h1>
+            <div className="admin-header">
+                <h1>Panel de Inventario</h1>
+                <button className="add-producto-btn" onClick={abrirModalCrear}>
+                    <span>+</span> Nuevo Producto
+                </button>
+            </div>
 
-            <ul className="productos-list">
-                {listaSegura.length > 0 ? (
-                    listaSegura.map((producto) => (
-                        <li key={producto.id} className="producto-item">
-                            <div className="producto-item-header">
-                                <strong>{producto.nombre}</strong>
-                                <span className="producto-info-extra">
-                                    {producto.categoria} // {Number(producto.precio).toLocaleString('de-DE')} €
-                                </span>
-                            </div>
-                            <div className="producto-item-actions">
-                                <button onClick={() => consultarProducto(producto)}>VER</button>
-                                <button onClick={() => handleClickBorrar(producto)}>ELIMINAR</button>
-                                <button onClick={() => editarProductoModal(producto)}>EDITAR</button>
-                            </div>
-                        </li>
-                    ))
-                ) : (
-                    <p style={{ textAlign: 'center', color: 'var(--text-color)' }}>NO HAY DATOS EN LA BASE DE DATOS.</p>
-                )}
-            </ul>
+            <div className="table-container">
+                <table className="admin-table">
+                    <thead>
+                        <tr>
+                            <th>REF</th>
+                            <th>PRODUCTO</th>
+                            <th className="cell-category">CATEGORÍA</th>
+                            <th>PRECIO</th>
+                            <th className="cell-stock">ESTADO STOCK</th>
+                            <th style={{ textAlign: 'right' }}>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {listaSegura.length > 0 ? (
+                            listaSegura.map((producto) => {
+                                // Simulación de stock basado en el ID para demostración
+                                // Idealmente esto vendría del producto de la base de datos
+                                const randomStock = String(producto.id).charCodeAt(0) % 3;
+                                let stockBadge = { class: 'stock-high', text: 'EN STOCK' };
+                                if (randomStock === 1) stockBadge = { class: 'stock-medium', text: 'BAJO' };
+                                if (randomStock === 2) stockBadge = { class: 'stock-low', text: 'AGOTADO' };
 
-            <button className="add-producto-btn" onClick={abrirModalCrear}>
-                + NUEVA REFERENCIA
-            </button>
+                                return (
+                                    <tr key={producto.id}>
+                                        <td className="cell-id">#{String(producto.id).slice(0, 8)}</td>
+                                        <td>
+                                            <div className="cell-product">
+                                                <img src={producto.imagen} alt={producto.nombre} className="cell-img" />
+                                                <span className="cell-name">{producto.nombre}</span>
+                                            </div>
+                                        </td>
+                                        <td className="cell-category">{producto.categoria}</td>
+                                        <td className="cell-price">{Number(producto.precio).toLocaleString('es-ES')} €</td>
+                                        <td className="cell-stock">
+                                            <span className={`stock-badge ${stockBadge.class}`}>
+                                                {stockBadge.text}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="action-buttons">
+                                                <button className="btn-text-action" onClick={() => consultarProducto(producto)}>
+                                                    VER
+                                                </button>
+                                                <button className="btn-text-action" onClick={() => editarProductoModal(producto)}>
+                                                    EDITAR
+                                                </button>
+                                                <button className="btn-text-action delete" onClick={() => handleClickBorrar(producto)}>
+                                                    ELIMINAR
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        ) : (
+                            <tr>
+                                <td colSpan="6">
+                                    <div className="empty-state-table">
+                                        <p>NO HAY DATOS EN LA BASE DE DATOS.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
 
             {/* --- MODALES --- */}
-            
+
             <Modal isOpen={modals.crear} onClose={() => gestionarModal("crear", false)}>
                 <ProductoCrear onClose={() => gestionarModal("crear", false)} />
             </Modal>

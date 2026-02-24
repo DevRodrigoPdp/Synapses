@@ -14,7 +14,8 @@ const ProductoCrear = ({ onClose }) => {
         precio: '',
         imagen: '',
         categoria: 'Bicicleta de Montaña',
-        descripcion: ''
+        descripcion: '',
+        porcentaje: 0
     });
 
     const [errors, setErrors] = useState({});
@@ -30,7 +31,7 @@ const ProductoCrear = ({ onClose }) => {
 
     const validate = () => {
         let newErrors = {};
-        
+
         if (!form.nombre.trim()) newErrors.nombre = "El nombre es obligatorio.";
         if (!form.imagen.trim()) newErrors.imagen = "La URL de la imagen es obligatoria.";
         if (!form.categoria.trim()) newErrors.categoria = "La categoría es obligatoria.";
@@ -39,6 +40,11 @@ const ProductoCrear = ({ onClose }) => {
         const precioNum = parseFloat(form.precio);
         if (!form.precio || isNaN(precioNum) || precioNum <= 0) {
             newErrors.precio = "El precio debe ser un número mayor a 0.";
+        }
+
+        const porcentajeNum = parseFloat(form.porcentaje);
+        if (isNaN(porcentajeNum) || porcentajeNum < 0 || porcentajeNum > 100) {
+            newErrors.porcentaje = "El porcentaje debe estar entre 0 y 100.";
         }
 
         return newErrors;
@@ -61,14 +67,14 @@ const ProductoCrear = ({ onClose }) => {
             imagen: form.imagen.trim(),
             categoria: form.categoria.trim(),
             descripcion: form.descripcion.trim(),
-            ocasion: false,
-            porcentaje: 0.0 // Añado esto por si en Java lo tienes como Double no nulo
+            ocasion: parseFloat(form.porcentaje) > 0,
+            porcentaje: parseFloat(form.porcentaje)
         };
 
         try {
             // 4. Llamamos a la función de tu Contexto (que conecta con Axios/Java)
             const exito = await crearProducto(nuevoProducto);
- 
+
             if (exito) {
                 Swal.fire({
                     icon: 'success',
@@ -99,74 +105,97 @@ const ProductoCrear = ({ onClose }) => {
         <div className="form-container">
             <h2>Nuevo Producto (MySQL)</h2>
             <form onSubmit={handleSubmit} noValidate>
-                
-                {/* NOMBRE */}
-                <div style={{ marginBottom: '10px' }}>
-                    <input 
-                        type="text" 
-                        name="nombre" 
-                        placeholder="Nombre Modelo" 
-                        onChange={handleChange} 
-                        value={form.nombre}
-                        style={errors.nombre ? { borderColor: 'red' } : {}}
-                    />
-                    {errors.nombre && <span style={errorMsgStyle}>{errors.nombre}</span>}
+                <div className="form-grid-modal">
+                    {/* NOMBRE */}
+                    <div>
+                        <label>Nombre del Producto</label>
+                        <input
+                            type="text"
+                            name="nombre"
+                            placeholder="Ej: Casco Aero Ultra"
+                            onChange={handleChange}
+                            value={form.nombre}
+                            style={errors.nombre ? { borderColor: 'red' } : {}}
+                        />
+                        {errors.nombre && <span style={errorMsgStyle}>{errors.nombre}</span>}
+                    </div>
+
+                    {/* CATEGORÍA */}
+                    <div>
+                        <label>Categoría</label>
+                        <input
+                            type="text"
+                            name="categoria"
+                            placeholder="Bicicleta de Montaña"
+                            value={form.categoria}
+                            onChange={handleChange}
+                            style={errors.categoria ? { borderColor: 'red' } : {}}
+                        />
+                        {errors.categoria && <span style={errorMsgStyle}>{errors.categoria}</span>}
+                    </div>
+
+                    {/* PRECIO */}
+                    <div>
+                        <label>Precio (€)</label>
+                        <input
+                            type="number"
+                            name="precio"
+                            placeholder="0.00"
+                            onChange={handleChange}
+                            value={form.precio}
+                            style={errors.precio ? { borderColor: 'red' } : {}}
+                        />
+                        {errors.precio && <span style={errorMsgStyle}>{errors.precio}</span>}
+                    </div>
+
+                    {/* PORCENTAJE DESCUENTO */}
+                    <div>
+                        <label>Descuento (%)</label>
+                        <input
+                            type="number"
+                            name="porcentaje"
+                            placeholder="0 para no rebajado"
+                            onChange={handleChange}
+                            value={form.porcentaje}
+                            min="0"
+                            max="100"
+                            style={errors.porcentaje ? { borderColor: 'red' } : {}}
+                        />
+                        {errors.porcentaje && <span style={errorMsgStyle}>{errors.porcentaje}</span>}
+                    </div>
+
+                    {/* IMAGEN */}
+                    <div className="full-width-field">
+                        <label>URL de la Imagen</label>
+                        <input
+                            type="text"
+                            name="imagen"
+                            placeholder="https://ejemplo.com/imagen.jpg"
+                            onChange={handleChange}
+                            value={form.imagen}
+                            style={errors.imagen ? { borderColor: 'red' } : {}}
+                        />
+                        {errors.imagen && <span style={errorMsgStyle}>{errors.imagen}</span>}
+                    </div>
+
+                    {/* DESCRIPCIÓN */}
+                    <div className="full-width-field">
+                        <label>Descripción Técnica</label>
+                        <textarea
+                            name="descripcion"
+                            placeholder="Detalles sobre materiales, uso recomendado, etc."
+                            onChange={handleChange}
+                            value={form.descripcion}
+                            rows="4"
+                            style={errors.descripcion ? { borderColor: 'red' } : {}}
+                        ></textarea>
+                        {errors.descripcion && <span style={errorMsgStyle}>{errors.descripcion}</span>}
+                    </div>
                 </div>
 
-                {/* PRECIO */}
-                <div style={{ marginBottom: '10px' }}>
-                    <input 
-                        type="number" 
-                        name="precio" 
-                        placeholder="Precio (€)" 
-                        onChange={handleChange} 
-                        value={form.precio}
-                        style={errors.precio ? { borderColor: 'red' } : {}}
-                    />
-                    {errors.precio && <span style={errorMsgStyle}>{errors.precio}</span>}
-                </div>
-
-                {/* IMAGEN */}
-                <div style={{ marginBottom: '10px' }}>
-                    <input 
-                        type="text" 
-                        name="imagen" 
-                        placeholder="URL de la imagen" 
-                        onChange={handleChange} 
-                        value={form.imagen}
-                        style={errors.imagen ? { borderColor: 'red' } : {}}
-                    />
-                    {errors.imagen && <span style={errorMsgStyle}>{errors.imagen}</span>}
-                </div>
-
-                {/* CATEGORÍA */}
-                <div style={{ marginBottom: '10px' }}>
-                    <input 
-                        type="text" 
-                        name="categoria" 
-                        placeholder="Categoría" 
-                        value={form.categoria} 
-                        onChange={handleChange} 
-                        style={errors.categoria ? { borderColor: 'red' } : {}}
-                    />
-                    {errors.categoria && <span style={errorMsgStyle}>{errors.categoria}</span>}
-                </div>
-
-                {/* DESCRIPCIÓN */}
-                <div style={{ marginBottom: '10px' }}>
-                    <textarea 
-                        name="descripcion" 
-                        placeholder="Descripción técnica" 
-                        onChange={handleChange}
-                        value={form.descripcion}
-                        style={errors.descripcion ? { borderColor: 'red' } : {}}
-                    ></textarea>
-                    {errors.descripcion && <span style={errorMsgStyle}>{errors.descripcion}</span>}
-                </div>
-                
-                <div className="form-actions">
-                    <button type="submit" className="btn-save">Guardar en Base de Datos</button>
+                <div className="form-actions-modal">
                     <button type="button" className="btn-cancel" onClick={onClose}>Cancelar</button>
+                    <button type="submit" className="btn-save">Guardar Producto</button>
                 </div>
             </form>
         </div>

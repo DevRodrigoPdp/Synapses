@@ -50,16 +50,19 @@ function DetalleProducto() {
     const incrementar = () => setCantidad(prev => prev + 1);
     const decrementar = () => setCantidad(prev => (prev > 1 ? prev - 1 : 1));
 
+    // SIMULACIÓN DE STOCK (Igual que en Administracion.jsx)
+    const randomStock = infoProducto ? String(infoProducto.id).charCodeAt(0) % 3 : 0;
+    const isOutOfStock = randomStock === 2;
+
     // 4. NUEVA FUNCIÓN AÑADIR (Usando el Contexto)
     const handleAddToCart = () => {
-        if (!infoProducto) return;
+        if (!infoProducto || isOutOfStock) return;
 
         for (let i = 0; i < cantidad; i++) {
             // Llamamos directamente a la función del contexto
             agregar(infoProducto);
         }
         setCantidad(1);
-        // Opcional: Podrías poner un toast.success aquí si quisieras
     };
 
     // Renderizado condicional
@@ -104,8 +107,8 @@ function DetalleProducto() {
                         <h2 className="marca">SYNAPSES / BIKES</h2>
                         <h1 className="titulo">{infoProducto.nombre}</h1>
                         <div className="badges-row">
-                            <div className="stock-badge">
-                                EN STOCK
+                            <div className={`stock-badge ${isOutOfStock ? 'stock-low' : (randomStock === 1 ? 'stock-medium' : 'stock-high')}`}>
+                                {isOutOfStock ? 'AGOTADO' : (randomStock === 1 ? 'STOCK BAJO' : 'EN STOCK')}
                             </div>
                             <span className="sku-badge">REF: {infoProducto.id}XY</span>
                         </div>
@@ -124,13 +127,17 @@ function DetalleProducto() {
 
                     <div className="compra-actions-expanded">
                         <div style={{ display: 'flex', gap: '15px', width: '100%' }}>
-                            <div className="selector-cantidad">
+                            <div className="selector-cantidad" style={{ opacity: isOutOfStock ? 0.5 : 1, pointerEvents: isOutOfStock ? 'none' : 'auto' }}>
                                 <button onClick={decrementar}>−</button>
                                 <span>{cantidad}</span>
                                 <button onClick={incrementar}>+</button>
                             </div>
-                            <button className="btn-add-cart-large" onClick={handleAddToCart}>
-                                AÑADIR A LA CESTA
+                            <button
+                                className={`btn-add-cart-large ${isOutOfStock ? 'btn-disabled' : ''}`}
+                                onClick={handleAddToCart}
+                                disabled={isOutOfStock}
+                            >
+                                {isOutOfStock ? 'AGOTADO' : 'AÑADIR A LA CESTA'}
                             </button>
                         </div>
                     </div>

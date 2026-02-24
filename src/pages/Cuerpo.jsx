@@ -60,31 +60,62 @@ function Cuerpo() {
 
                             {/* LISTADO DE PRODUCTOS UNIFICADO */}
                             <div className="product-list" style={{ maxWidth: '100%', margin: 0 }}>
-                                {productosParaMostrar.map((item) => (
-                                    <div className="product-card" key={item.id}>
-                                        <div className="product-image-container">
-                                            {item.porcentaje > 0 && <div className="new-badge">-{item.porcentaje}%</div>}
-                                            {item.porcentaje === 0 && <div className="new-badge">NEW</div>}
-                                            <div className="brand-badge">SYNAPSES / EXCLUSIVA</div>
-                                            <Link to={`/detalle/${item.id}`}>
-                                                <img src={item.imagen} alt={item.nombre} className="product-image" />
-                                            </Link>
-                                            <div className="hover-action-overlay" onClick={() => agregar(item)}>
-                                                <button className="hover-buy-btn">AÑADIR AL CARRITO</button>
-                                            </div>
-                                        </div>
-                                        <div className="product-info-container">
-                                            <h3 className="product-name">{item.nombre}</h3>
-                                            <div className="product-price">
-                                                {item.porcentaje > 0 ? (
-                                                    <span>{Number(item.precio - (item.precio * (item.porcentaje / 100))).toLocaleString('es-ES')} €</span>
+                                {productosParaMostrar.map((item) => {
+                                    // SIMULACIÓN DE STOCK
+                                    const randomStock = String(item.id).charCodeAt(0) % 3;
+                                    const isOutOfStock = randomStock === 2;
+
+                                    return (
+                                        <div className="product-card" key={item.id}>
+                                            <div className="product-image-container">
+                                                {isOutOfStock ? (
+                                                    <div className="new-badge" style={{ background: '#333', color: '#999' }}>AGOTADO</div>
                                                 ) : (
-                                                    <span>{Number(item.precio).toLocaleString('es-ES')} €</span>
+                                                    <>
+                                                        {item.porcentaje > 0 && <div className="new-badge" style={{ background: '#ef4444' }}>-{item.porcentaje}%</div>}
+                                                        {item.porcentaje === 0 && <div className="new-badge">NUEVO</div>}
+                                                    </>
                                                 )}
+
+                                                <div className="brand-badge">SYNAPSES / EXCLUSIVA</div>
+                                                <Link to={`/detalle/${item.id}`}>
+                                                    <img src={item.imagen} alt={item.nombre} className={`product-image ${isOutOfStock ? 'img-agotado' : ''}`} />
+                                                </Link>
+                                                <div
+                                                    className={`hover-action-overlay ${isOutOfStock ? 'overlay-agotado' : ''}`}
+                                                    onClick={(e) => {
+                                                        if (isOutOfStock) {
+                                                            e.preventDefault();
+                                                            return;
+                                                        }
+                                                        agregar(item);
+                                                    }}
+                                                >
+                                                    <button className={`hover-buy-btn ${isOutOfStock ? 'btn-agotado' : ''}`}>
+                                                        {isOutOfStock ? 'AGOTADO' : 'AÑADIR AL CARRITO'}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="product-info-container">
+                                                <h3 className="product-name">{item.nombre}</h3>
+                                                <div className="product-price">
+                                                    {item.porcentaje > 0 ? (
+                                                        <span>
+                                                            <span style={{ textDecoration: 'line-through', color: '#999', marginRight: '8px', fontSize: '0.85em' }}>
+                                                                {Number(item.precio).toLocaleString('es-ES')} €
+                                                            </span>
+                                                            <span style={{ color: '#ef4444' }}>
+                                                                {Number(item.precio - (item.precio * (item.porcentaje / 100))).toLocaleString('es-ES')} €
+                                                            </span>
+                                                        </span>
+                                                    ) : (
+                                                        <span>{Number(item.precio).toLocaleString('es-ES')} €</span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
 
                             {productosParaMostrar.length === 0 && (

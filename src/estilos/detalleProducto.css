@@ -294,6 +294,19 @@ html.dark .selector-cantidad span {
     color: #000;
 }
 
+/* Estado deshabilitado (Sin stock) */
+.btn-add-cart-large.btn-disabled {
+    background: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+    /* Evitamos hover styles */
+}
+
+.btn-add-cart-large.btn-disabled:hover {
+    background: #e0e0e0;
+    color: #999;
+}
+
 html.dark .btn-add-cart-large {
     background: #eee;
     color: #111;
@@ -302,6 +315,16 @@ html.dark .btn-add-cart-large {
 html.dark .btn-add-cart-large:hover {
     background: #dfcdad;
     color: #000;
+}
+
+html.dark .btn-add-cart-large.btn-disabled {
+    background: #333;
+    color: #666;
+}
+
+html.dark .btn-add-cart-large.btn-disabled:hover {
+    background: #333;
+    color: #666;
 }
 
 /* TABS ACORDEON MINIMALISTAS */

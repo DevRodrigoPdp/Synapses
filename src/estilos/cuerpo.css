@@ -262,6 +262,31 @@ html.dark .product-image {
     transform: translateY(0);
 }
 
+/* Estado Agotado en Grid */
+.product-image.img-agotado {
+    filter: grayscale(100%);
+    opacity: 0.7;
+}
+
+.hover-action-overlay.overlay-agotado {
+    background: rgba(0, 0, 0, 0.4);
+    /* Fondo más claro y "muerto" */
+    cursor: not-allowed;
+    pointer-events: none;
+    /* Evita que los eventos de clic se propaguen a los elementos internos */
+}
+
+.hover-action-overlay.overlay-agotado .hover-buy-btn {
+    pointer-events: auto;
+    /* Permite que el botón sea clickeable si se desea, aunque el cursor sea not-allowed */
+}
+
+.hover-buy-btn.btn-agotado {
+    color: #999;
+    /* Cambia el color del texto a un gris más claro */
+    cursor: not-allowed;
+}
+
 .hover-buy-btn {
     background: transparent;
     color: #333;
