@@ -112,7 +112,7 @@ export const useLoginForm = () => {
             if (isSignUp) {
                 result = await signUp(form.email, form.password);
                 if (!result.error) {
-                    toast.success('¡Registro exitoso! Revisa tu email de confirmación.');
+                    toast.success('¡Registro exitoso! Ya puedes iniciar sesión.');
                     setIsSignUp(false);
                 }
             } else {
