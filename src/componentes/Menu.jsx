@@ -26,7 +26,9 @@ const Menu = () => {
 
     const { user, signOut } = useAuth();
     const { carrito, total } = useCarrito();
-    const esPropietario = user?.email === 'rpuertadelpozo@gmail.com';
+    // Leemos el correo de administrador de forma segura mediante variables de entorno
+    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL?.toLowerCase();
+    const esPropietario = !!user?.email && user.email.toLowerCase() === adminEmail;
 
     useEffect(() => {
         const handleEsc = (event) => {
