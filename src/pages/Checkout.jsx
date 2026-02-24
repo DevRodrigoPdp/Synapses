@@ -127,7 +127,7 @@ const Checkout = () => {
                                 <input type="text" placeholder="CVV *" maxLength="4" value={payment.cvv} onChange={e => setPayment({ ...payment, cvv: e.target.value })} />
                                 <input type="text" placeholder="Titular de la tarjeta" className="full-width" />
                             </div>
-                            <div className="checkout-actions">
+                            <div className="checkout-actions outline-top">
                                 <button className="btn-outline-rojo" onClick={handleBack}>VOLVER</button>
                                 <button className="btn-negro-solido" onClick={handleNext}>REVISAR PEDIDO</button>
                             </div>
