@@ -12,28 +12,26 @@ export const useLoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [errores, setErrores] = useState({});
     const [mostrarPassword, setMostrarPassword] = useState(false);
-    
+
     const [form, setForm] = useState({
         email: '',
         password: '',
-        confirmPassword: '' 
+        confirmPassword: ''
     });
 
     const handleGoogleLogin = async () => {
-        try {
-            setLoading(true);
-            const { error } = await loginWithGoogle();
-            if (error) throw error;
-        } catch (error) {
-            console.error(error);
-            toast.error("Error al iniciar sesión con Google");
-            setLoading(false);
-        }
+        // Funcionalidad por implementar
+        Swal.fire({
+            title: 'Próximamente',
+            text: 'El inicio de sesión con Google está planificado para futuras versiones de este proyecto.',
+            icon: 'info',
+            confirmButtonText: 'Entendido'
+        });
     };
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
-        
+
         const { value: emailInput } = await Swal.fire({
             title: 'Recuperar Contraseña',
             text: 'Introduce tu email para recibir el enlace de recuperación',
@@ -85,7 +83,7 @@ export const useLoginForm = () => {
                 nuevosErrores.password = "La contraseña debe tener: " + erroresPass.join(", ");
             }
         }
-        
+
         if (isSignUp) {
             if (!form.confirmPassword) {
                 nuevosErrores.confirmPassword = "Debes confirmar la contraseña";
@@ -100,7 +98,7 @@ export const useLoginForm = () => {
 
     const enviarFormulario = async (e) => {
         e.preventDefault();
-        
+
         if (!validar()) {
             toast.warn("Por favor revisa los campos del formulario");
             return;
@@ -133,8 +131,8 @@ export const useLoginForm = () => {
 
             if (result.error) {
                 const msg = result.error.message;
-                setErrores({ auth: msg }); 
-                toast.error(`Error: ${msg}`); 
+                setErrores({ auth: msg });
+                toast.error(`Error: ${msg}`);
             }
 
         } catch (err) {
@@ -149,7 +147,7 @@ export const useLoginForm = () => {
         e.preventDefault();
         setIsSignUp(!isSignUp);
         setErrores({});
-        setForm(prev => ({ ...prev, confirmPassword: '' })); 
+        setForm(prev => ({ ...prev, confirmPassword: '' }));
     };
 
     return {

@@ -58,24 +58,24 @@ const Login = () => {
                             type={mostrarPassword ? "text" : "password"}
                             name="password"
                             className="form-field"
-                            style={{ marginTop: 0, width: '100%' }} 
+                            style={{ marginTop: 0, width: '100%' }}
                             value={form.password}
                             onChange={gestionarCampos}
                             placeholder="Password"
                         />
-                        
-                        <button 
+
+                        <button
                             type="button"
                             className="btn-eye-toggle"
                             onClick={() => setMostrarPassword(!mostrarPassword)}
                             tabIndex="-1"
                             title={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                         >
-                                {mostrarPassword ? (
-                                    <FiEyeOff size={20} />
-                                ) : (
-                                    <FiEye size={20} />
-                                )}
+                            {mostrarPassword ? (
+                                <FiEyeOff size={20} />
+                            ) : (
+                                <FiEye size={20} />
+                            )}
                         </button>
                     </div>
                     {errores.password && <p className="error-text">{errores.password}</p>}
@@ -110,12 +110,11 @@ const Login = () => {
                         {loading ? 'Procesando...' : (isSignUp ? 'REGISTRARSE' : 'LOGIN')}
                     </button>
 
-                    {/* 2. MODIFICADO: Botón Google con la lógica real e icono SVG */}
-                    <button 
-                        type="button" 
-                        className="google-btn animation a6" 
-                        disabled={loading}
-                        onClick={handleGoogleLogin} // <-- Aquí conectamos la función
+                    {/* 2. MODIFICADO: Botón Google marcado como por implementar */}
+                    <button
+                        type="button"
+                        className="google-btn animation a6"
+                        onClick={handleGoogleLogin}
                     >
                         <FcGoogle size={22} style={{ marginRight: '8px' }} />
                         Sign in with Google
