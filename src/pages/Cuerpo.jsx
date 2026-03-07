@@ -54,6 +54,18 @@ function Cuerpo() {
         });
     }, [productos, categoriaActiva]);
 
+    // Efecto para hacer scroll al catálogo si se entra por un enlace de anclaje (ej. desde Autor)
+    React.useEffect(() => {
+        if (!loading && window.location.hash === '#productos') {
+            const element = document.getElementById('productos');
+            if (element) {
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+    }, [loading]);
+
     if (loading) return <div style={{ padding: '50px', textAlign: 'center' }}>CARGANDO CATALOGO SYNAPSES...</div>;
 
     return (

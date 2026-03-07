@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../estilos/scrollToTop.css';
 
 const ScrollToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const { pathname, hash } = useLocation();
+
+    // 1. AUTO-SCROLL AL NAVEGAR ENTRE PÁGINAS
+    useEffect(() => {
+        // Solo subimos arriba si NO hay un anclaje (hash) en el enlace
+        if (!hash) {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+    }, [pathname, hash]);
 
     // Muestra el botón cuando el usuario hace scroll hacia abajo
     const toggleVisibility = () => {

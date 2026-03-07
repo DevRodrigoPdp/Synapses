@@ -31,7 +31,10 @@ function DetalleProducto() {
         }
     }, [id, productos]);
 
-
+    // EFECTO DE UX: Hacer scroll hacia arriba del todo siempre que cargue un nuevo id
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [id]);
 
     const formatearMoneda = (cantidad) => {
         if (!cantidad) return "0 €";

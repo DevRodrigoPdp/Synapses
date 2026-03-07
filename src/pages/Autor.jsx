@@ -66,7 +66,7 @@ function Autor() {
             <section className="dossier-cta">
                 <div className="cta-box">
                     <h2>¿QUIERES VER EL RESULTADO?</h2>
-                    <Link to="/" className="btn-lab">
+                    <Link to="/#productos" className="btn-lab">
                         VOLVER AL CATÁLOGO DE LA TIENDA
                     </Link>
                 </div>

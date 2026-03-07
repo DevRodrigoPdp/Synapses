@@ -71,11 +71,8 @@ function Administracion() {
 
     return (
         <div className="admin-container">
-            <div className="admin-header">
-                <h1>Panel de Inventario</h1>
-            </div>
-
-            <div className="admin-actions-bar" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+            <div className="admin-header" style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h1 style={{ margin: 0 }}>Panel de Inventario</h1>
                 <button className="add-producto-btn" onClick={abrirModalCrear}>
                     <span>+</span> Nuevo Producto
                 </button>
