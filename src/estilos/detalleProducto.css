@@ -423,7 +423,7 @@ html.dark .shipping-details p {
    5. SECCIONES FULL WIDTH
    ========================================= */
 .full-width-section {
-    width: 100vw;
+    width: 100%;
     position: relative;
     left: 50%;
     right: 50%;
@@ -887,7 +887,7 @@ html.dark .related-add-btn:hover {
     /* Secciones Full Width que tocan bordes en móvil */
     .full-width-section {
         padding: 60px 0;
-        width: 100vw;
+        width: 100%;
         margin-left: -50vw;
         margin-right: -50vw;
         left: 50%;

@@ -4,7 +4,8 @@
 
 .search-container {
     position: relative;
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     margin: 0 5px;
 }
 
@@ -52,6 +53,7 @@
     outline: none !important;
     box-shadow: none !important;
     -webkit-appearance: none;
+    appearance: none;
     font-family: inherit;
     letter-spacing: 0.3px;
 }

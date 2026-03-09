@@ -11,17 +11,16 @@ html {
     background: var(--bg-color);
     min-height: 100vh;
     padding: 40px 4% 100px 4%;
-    /* Reducido de 100px arriba a 40px para acercarlo a la portada */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     transition: background-color 0.4s ease;
-    overflow-x: clip;
-    /* clip en vez de hidden para no romper position:sticky */
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
-/* Título */
 .h3-Productos {
     font-family: var(--font-display);
     font-size: clamp(2rem, 4vw, 4rem);
@@ -29,7 +28,7 @@ html {
     text-transform: uppercase;
     margin-bottom: 40px;
     align-self: flex-start;
-    max-width: 1600px;
+    max-width: 100%;
     width: 100%;
     color: var(--text-color);
     transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -436,30 +435,74 @@ html.dark .product-price {
 
 @media (max-width: 600px) {
     .product-list {
+        /* Cambio a 1 columna (Ancho completo) según petición */
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 25px;
+        padding: 5px;
+        width: 100%;
     }
 
     .product-image-container {
-        min-height: 350px;
+        min-height: 250px;
+        padding: 20px;
+        border-radius: 4px;
+        /* Un toque curvo limpio */
     }
 
     .product-image {
-        max-height: 280px;
+        max-height: 180px;
     }
 
     .product-name {
         font-size: 16px;
+        letter-spacing: 0.5px;
+        margin-top: 8px;
+    }
+
+    .product-price {
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .new-badge {
+        font-size: 10px;
+        padding: 6px 10px;
+        top: 15px;
+        left: 15px;
+    }
+
+    .brand-badge {
+        font-size: 10px;
+        top: 15px;
+        right: 15px;
+    }
+
+    /* En móvil, mostramos siempre la barra de añadir */
+    .hover-action-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        padding: 12px;
+        background: rgba(223, 205, 173, 0.95);
+    }
+
+    .hover-buy-btn {
+        font-size: 12px;
+        padding: 6px;
+        letter-spacing: 1px;
+    }
+
+    .product-info-container {
+        padding: 12px 5px;
     }
 }
 
-/* --- CONTENEDOR CATÁLOGO RESPONSIVE --- */
 .catalogo-container {
     display: flex;
     width: 100%;
-    max-width: 1800px;
+    max-width: 100%;
     margin: 0 auto;
     flex-direction: row;
+    box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
