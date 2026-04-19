@@ -506,6 +506,8 @@ html.dark .product-price {
     margin: 0 auto;
     flex-direction: row;
     box-sizing: border-box;
+    align-items: flex-start;
+    min-height: 80vh;
 }
 
 @media (max-width: 900px) {
