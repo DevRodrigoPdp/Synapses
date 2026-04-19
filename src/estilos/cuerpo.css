@@ -231,10 +231,6 @@ html.dark .product-image {
     filter: none;
 }
 
-/* Ligero aumento de tamaño al pasar el cursor, muy formal */
-.product-card:hover .product-image {
-    transform: scale(1.02);
-}
 
 
 /* --- OVERLAY DE COMPRA TIPO COMMENCAL (El banner inferior translucido) --- */
@@ -303,10 +299,12 @@ html.dark .product-image {
 
 /* --- INFO (TEXTO INFERIOR MINIMALISTA PERO MÁS GRANDE) --- */
 .product-info-container {
-    padding: 10px 15px;
+    padding: 32px 15px 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    position: relative;
+    z-index: 1;
 }
 
 .product-name {
@@ -359,7 +357,7 @@ html.dark .product-price {
     padding: 30px 15px;
 }
 
-/* Aumentamos dramáticamente el tamaño del contenedor de la imagen */
+/* Contenedor de imagen: overflow visible para permitir superposición */
 .product-image-container {
     background: #f8f8f8;
     position: relative;
@@ -368,21 +366,26 @@ html.dark .product-price {
     justify-content: center;
     align-items: center;
     min-height: 400px;
-    /* Antes 250px. ¡Tarjetas mucho más altas e imponentes! */
-    margin-bottom: 12px;
+    margin-bottom: 0;
     border: 1px solid #f8f8f8;
     transition: border-color 0.3s ease;
-    overflow: hidden;
+    overflow: visible;
 }
 
-/* Hacemos la imagen mucho mayor */
+/* Imagen flota sobre el texto inferior sin escalar */
 .product-image {
     width: 100%;
-    max-height: 320px;
-    /* Antes 200px */
+    height: auto;
     object-fit: contain;
-    transition: transform 0.4s ease;
+    position: relative;
+    z-index: 2;
+    transform: translateY(22px);
+    transition: transform 0.3s ease;
     filter: none;
+}
+
+.product-card:hover .product-image {
+    transform: translateY(18px);
 }
 
 /* Badges también más legibles */

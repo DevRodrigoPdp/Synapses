@@ -120,7 +120,7 @@ html.dark .imagen-principal-wrapper {
 }
 
 .imagen-principal-wrapper:hover .img-main {
-    transform: scale(1.03);
+    transform: scale(0.97);
 }
 
 /* =========================================
@@ -716,7 +716,7 @@ html.dark .related-product-img {
 }
 
 .related-product-card:hover .related-product-img img {
-    transform: scale(1.05);
+    transform: scale(0.97);
 }
 
 .related-badge-discount {
