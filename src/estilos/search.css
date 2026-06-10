@@ -100,7 +100,7 @@ html.dark .search-overlay-input-wrap:focus-within {
     flex: 1;
     background: transparent;
     border: none;
-    outline: none;
+    outline: none !important;
     font-size: 1.1rem;
     color: var(--text-color, #1a1a1a);
     font-family: inherit;
