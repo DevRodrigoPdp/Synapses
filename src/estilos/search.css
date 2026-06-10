@@ -43,15 +43,15 @@
 .search-overlay-panel {
     width: 100%;
     height: 85vh;
-    background: var(--bg-solid, #ffffff);
+    background: var(--card-bg, #ffffff);
     display: flex;
     flex-direction: column;
     animation: panelSlideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 
-[data-theme='dark'] .search-overlay-panel {
-    background: var(--bg-solid, #111);
+html.dark .search-overlay-panel {
+    background: var(--card-bg, #121212);
 }
 
 @keyframes panelSlideDown {
@@ -79,17 +79,17 @@
     transition: background 0.2s;
 }
 
-[data-theme='dark'] .search-overlay-input-wrap {
+html.dark .search-overlay-input-wrap {
     background: rgba(255, 255, 255, 0.06);
 }
 
 .search-overlay-input-wrap:focus-within {
     background: var(--bg-drawer, #efefef);
-    outline: 2px solid var(--accent-color, #2563eb);
+    outline: 2px solid var(--accent-color, #e74c3c);
     outline-offset: -2px;
 }
 
-[data-theme='dark'] .search-overlay-input-wrap:focus-within {
+html.dark .search-overlay-input-wrap:focus-within {
     background: rgba(255, 255, 255, 0.09);
 }
 
@@ -163,13 +163,13 @@
     left: 0;
     right: 0;
     height: 60px;
-    background: linear-gradient(to bottom, transparent, var(--bg-solid, #ffffff));
+    background: linear-gradient(to bottom, transparent, var(--card-bg, #ffffff));
     pointer-events: none;
     z-index: 1;
 }
 
-[data-theme='dark'] .search-overlay-body-wrap::after {
-    background: linear-gradient(to bottom, transparent, var(--bg-solid, #111));
+html.dark .search-overlay-body-wrap::after {
+    background: linear-gradient(to bottom, transparent, var(--card-bg, #121212));
 }
 
 .search-overlay-body {
@@ -215,7 +215,7 @@
     position: relative;
 }
 
-[data-theme='dark'] .search-card {
+html.dark .search-card {
     background: rgba(255,255,255,0.03);
 }
 
@@ -353,8 +353,8 @@
     border-color: var(--border-color, #e5e7eb);
 }
 
-[data-theme='dark'] .search-result-row:hover,
-[data-theme='dark'] .search-result-row.active {
+html.dark .search-result-row:hover,
+html.dark .search-result-row.active {
     background: rgba(255, 255, 255, 0.05);
 }
 
